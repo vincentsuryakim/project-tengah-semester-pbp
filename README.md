@@ -34,3 +34,17 @@ Modul:
 Persona:
 Masyarakat umum (belum LOG IN), dapat mengetahui informasi COVID-19 pada halaman utama saja.
 Masyarakat umum (sudah LOG IN), dapat mengetahui informasi COVID-19 secara lengkap.
+
+GOALS
+- Memberikan informasi mengenai COVID-19
+
+MOTIVATIONS
+- Masyarakat mengharapkan website yang memberikan informasi mengenai COVID-19
+- Masyarakat mengharapkan website yang memiliki design simple
+- Masyarakat mengharapkan website yang memudahkan untuk mencari informasi rumah sakit rujukan covid-19 yang sedang available 
+- Masyarakat mengharapkan website yang mudah digunakan untuk semua umur
+
+FRUSTRATIONS
+- Bingung mengenai informasi COVID-19 yang pasti dan terkini
+- Bingung mengenai dampak COVID-19
+- Bingung di mana tempat rumah sakit rujukan COVID-19
