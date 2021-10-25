@@ -154,9 +154,52 @@ Infid
 {% if user.is_authenticated %}
     <div class="row mt-3">
         <div class="col-5"></div>
-        <button type="button" class="btn btn-primary col-2">Add</button>
+        <!-- Button trigger modal -->
+        <button type="button" type="button" class="btn btn-primary col-2" data-bs-toggle="modal" data-bs-target="#addModal">
+            Add
+        </button>
     </div>
 {% endif %}
+
+
+<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
+                        <input type="text" class="form-control to" id="modal_to" name="provinsi" value="" placeholder="Provinsi" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Terkonfirmasi</label>
+                        <input type="number" class="form-control from" id="modal_from" name="jumlah_kasus_terkonfirmasi" value="0" placeholder="Terkonfirmasi">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Kasus Aktif</label>
+                        <input type="number" class="form-control title" id="modal_title" name="jumlah_kasus_aktif" value="0" placeholder="Kasus Aktif">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Sembuh</label>
+                        <input type="number" class="form-control title" id="modal_title" name="jumlah_sembuh" value="0" placeholder="Sembuh">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Meninggal</label>
+                        <input type="number" class="form-control title" id="modal_title" name="jumlah_meninggal" value="0" placeholder="Meninggal">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Submit" pk="" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
     const sebaran_values = "{{ sebaran_values|safe }}".replace(/'/g, '"');

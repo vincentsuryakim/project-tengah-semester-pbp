@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.db.models import Sum
+from django.http import HttpResponseRedirect
 
 from .models import Sebaran, SebaranUser
+from .forms import SebaranForm
 
 # Create your views here.
 
@@ -14,6 +16,12 @@ def index(request):
         'sembuh': Sebaran.objects.aggregate(Sum('jumlah_sembuh'))['jumlah_sembuh__sum'],
         'meninggal': Sebaran.objects.aggregate(Sum('jumlah_meninggal'))['jumlah_meninggal__sum']
     }
+
+    form = SebaranForm(request.POST or None)
+
+    if (form.is_valid() and request.method == "POST"):
+        form.save()
+        return HttpResponseRedirect("/sebaran")
 
     if request.user.is_authenticated:
         response['sebaran_user'] = SebaranUser.objects.get(user_id=request.user.id)
