@@ -1,0 +1,211 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+Infid
+{% endblock title %}
+
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+    <style>
+        .box-font-title {
+            font-size: 2.5rem;
+            margin-left: 1ch;
+            margin-bottom: 0;
+        }
+        .box-font-content {
+            font-size: 3.5rem;
+            margin-right: 1ch;
+            margin-bottom: 0;
+        }
+        @media (max-width: 992px) {
+            .box-font-title {
+                font-size: 1.5rem;
+                margin-left: 0;
+            }
+            .box-font-content {
+                font-size: 2rem;
+                margin-right: 0;
+            }
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+<h1 class="text-center mt-4">Persebaran Data</h1>
+<div class="row mt-3 mt-md-4 px-3">
+    <div class="col-md-1"></div>
+    <div class="col-12 col-md-10">
+        <canvas id="sebaranChart"></canvas>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="d-none d-md-block col-md-1"></div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/covid.jpeg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Terkonfirmasi</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ terkonfirmasi }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5 mt-3 mt-md-0">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/covid.jpeg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Kasus Aktif</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ aktif }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="d-none d-md-block col-md-1"></div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/covid.jpeg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Sembuh</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ sembuh }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5 mt-3 mt-md-0">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/covid.jpeg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Meninggal</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ meninggal }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+    <div class="row" style="margin-top: 3rem;">
+        <div class="col-1"></div>
+        <div class="col-10 bg-light shadow-lg py-5">
+            <h2 class="text-center">Provinsi Anda Saat Ini</h2>
+            <div class="row d-flex justify-content-center text-center" style="margin-top: 2.25rem;">
+                <div class="col-12 col-md-2">
+                    <h4>Provinsi</h4>
+                    <p>{{ sebaran_user.provinsi }}</p>
+                </div>
+                <div class="col-12 col-md-2">
+                    <h4>Terkonfirmasi</h4>
+                    <p>{{ sebaran_user.provinsi.jumlah_kasus_terkonfirmasi }}</p>
+                </div>
+                <div class="col-12 col-md-2">
+                    <h4>Kasus Aktif</h4>
+                    <p>{{ sebaran_user.provinsi.jumlah_kasus_aktif }}</p>
+                </div>
+                <div class="col-12 col-md-2">
+                    <h4>Sembuh</h4>
+                    <p>{{ sebaran_user.provinsi.jumlah_sembuh }}</p>
+                </div>
+                <div class="col-12 col-md-2">
+                    <h4>Meninggal</h4>
+                    <p>{{ sebaran_user.provinsi.jumlah_meninggal }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="w-100 d-flex justify-content-center" style="overflow-x:scroll; margin-top: 3rem;">
+    <table class="table table-hover w-75">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Provinsi</th>
+            <th scope="col">Terkonfirmasi</th>
+            <th scope="col">Kasus Aktif</th>
+            <th scope="col">Sembuh</th>
+            <th scope="col">Meninggal</th>
+            {% if user.is_authenticated %}
+                <th scope="col">Actions</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+            {% if sebaran %}
+                {% for s in sebaran %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ s.provinsi }}</td>
+                        <td>{{ s.jumlah_kasus_terkonfirmasi }}</td>
+                        <td>{{ s.jumlah_kasus_aktif }}</td>
+                        <td>{{ s.jumlah_sembuh }}</td>
+                        <td>{{ s.jumlah_meninggal }}</td>
+                        {% if user.is_authenticated %}
+                            <td>
+                                <button type="button" class="btn btn-secondary">Edit</button>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+      </table>
+</div>
+
+{% if user.is_authenticated %}
+    <div class="row mt-3">
+        <div class="col-5"></div>
+        <button type="button" class="btn btn-primary col-2">Add</button>
+    </div>
+{% endif %}
+
+<script>
+    const sebaran_values = "{{ sebaran_values|safe }}".replace(/'/g, '"');
+    const sebaran_data = JSON.parse(sebaran_values);
+
+    let d_labels = []
+    let d_data_aktif = []
+
+    for (let i=0; i<sebaran_data.length; i++) {
+        d_labels.push(sebaran_data[i].provinsi)
+        d_data_aktif.push(sebaran_data[i].jumlah_kasus_aktif)
+    }
+
+    const ctx = document.getElementById('sebaranChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: d_labels,
+            datasets: [
+                {
+                    label: 'Jumlah Kasus Aktif per Provinsi',
+                    data: d_data_aktif,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock content %}
