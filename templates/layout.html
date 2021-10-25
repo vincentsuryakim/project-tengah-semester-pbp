@@ -85,7 +85,10 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
-                                <div class="form-body">
+                                <div class="modal-body">
+                                    <form method="POST" action="#">
+                                    {% csrf_token %}
+                                    
                                     <div class="row">
                                         <div class="form-holder">
                                             <div class="form-content">
@@ -94,17 +97,21 @@
                                                     <form class="requires-validation" novalidate>
                             
                                                         <div class="col-md-12">
-                                                           <input class="form-control" type="text" name="name" placeholder="Name" required>
+                                                           <input class="form-control" type="text" name="username" placeholder="Username" required>
                                                            <div class="valid-feedback">Username field is valid!</div>
                                                            <div class="invalid-feedback">Username field cannot be blank!</div>
                                                         </div>
-                            
+                                                        
+                                                        <br>
+
                                                         <div class="col-md-12">
                                                             <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
                                                              <div class="valid-feedback">Email field is valid!</div>
                                                              <div class="invalid-feedback">Email field cannot be blank!</div>
                                                         </div>
                             
+                                                        <br>
+
                                                        <div class="col-md-12">
                                                           <input class="form-control" type="password" name="password" placeholder="Password" required>
                                                            <div class="valid-feedback">Password field is valid!</div>
@@ -112,8 +119,12 @@
                                                        </div>
                             
                                                         <div class="form-button mt-3">
-                                                            <button style="width: 100%; background-color: #00ADB5;" id="submit" type="submit" class="btn btn-primary">Register</button>
+                                                            <button style="width: 100%; background-color: #00ADB5;" id="submit" type="submit" class="btn btn-primary" value="Signup">Register</button>
+
                                                         </div>
+
+                                                        <br>
+
                                                     </form>
                                                 </div>
                                             </div>
@@ -165,7 +176,7 @@
                                                                    </div>
                                         
                                                                     <div class="form-button mt-3">
-                                                                        <button style="width: 100%; background-color: #00ADB5;" id="submit" type="submit" class="btn btn-primary">Submit</button>
+                                                                        <button style="width: 100%; background-color: #00ADB5;" id="submit" type="submit" class="btn btn-primary" value="Login">Submit</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -183,6 +194,7 @@
                             </div>
                     {% else %}
                         <p class="text-center authenticated_cust">Hi, {{ user.first_name }}!</p>
+                        <a class="btn myButton" href="{% url 'Infid:logout' %}">Logout</a>
                     {% endif %}
                 </div>
             </div>
