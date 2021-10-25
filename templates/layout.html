@@ -70,9 +70,117 @@
                     </ul>
                     {% if not user.is_authenticated %}
                         <form class="d-flex justify-content-center">
-                            <button type="button" class="mr-3 btn btn-link text-white text-decoration-none">Sign Up</button>
-                            <button class="btn btn-outline-success ml-3 text-dark px-3" style="background-color: #00ADB5;" type="submit">Log In</button>
-                        </form>
+                            <!-- Button trigger modal -->
+                        <button type="button" class="mr-3 btn btn-link text-white text-decoration-none" data-toggle="modal" data-target="#exampleModalCenter">
+                            Sign Up
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <b><p style="color: #152636; font-size: 30px;">Sign Up</p></b>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-bottom: 20px;">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="form-holder">
+                                            <div class="form-content">
+                                                <div class="form-items">
+                                                    
+                                                    <form class="requires-validation" novalidate>
+                            
+                                                        <div class="col-md-12">
+                                                           <input class="form-control" type="text" name="name" placeholder="Name" required>
+                                                           <div class="valid-feedback">Username field is valid!</div>
+                                                           <div class="invalid-feedback">Username field cannot be blank!</div>
+                                                        </div>
+                            
+                                                        <div class="col-md-12">
+                                                            <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
+                                                             <div class="valid-feedback">Email field is valid!</div>
+                                                             <div class="invalid-feedback">Email field cannot be blank!</div>
+                                                        </div>
+                            
+                                                       <div class="col-md-12">
+                                                          <input class="form-control" type="password" name="password" placeholder="Password" required>
+                                                           <div class="valid-feedback">Password field is valid!</div>
+                                                           <div class="invalid-feedback">Password field cannot be blank!</div>
+                                                       </div>
+                            
+                                                        <div class="form-button mt-3">
+                                                            <button style="width: 100%; background-color: #00ADB5;" id="submit" type="submit" class="btn btn-primary">Register</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                            <!-- Button trigger modal LOGIN -->
+                            <button type="button" class="btn btn-outline-success ml-3 text-dark px-3" style="background-color: #00ADB5;" data-toggle="modal" data-target="#Login">
+                                Login
+                            </button>
+                            </form>
+                            <!-- Modal LOGIN -->
+                            <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="#">
+                                            {% csrf_token %}
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="form-holder">
+                                                        <div class="form-content">
+                                                            <div class="form-items">
+                                                                <b><p style="color: #152636; font-size: 30px;">Login</p></b>
+                                                                <form class="requires-validation" novalidate>
+                                        
+                                                                    <div class="col-md-12">
+                                                                       <input class="form-control" type="text" name="name" placeholder="Name" required>
+                                                                       <div class="valid-feedback">Username field is valid!</div>
+                                                                       <div class="invalid-feedback">Username field cannot be blank!</div>
+                                                                    </div>
+                                                                    <br>
+                                        
+                                                                   <div class="col-md-12">
+                                                                      <input class="form-control" type="password" name="password" placeholder="Password" required>
+                                                                       <div class="valid-feedback">Password field is valid!</div>
+                                                                       <div class="invalid-feedback">Password field cannot be blank!</div>
+                                                                   </div>
+                                        
+                                                                    <div class="form-button mt-3">
+                                                                        <button style="width: 100%; background-color: #00ADB5;" id="submit" type="submit" class="btn btn-primary">Submit</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                     {% else %}
                         <p class="text-center authenticated_cust">Hi, {{ user.first_name }}!</p>
                     {% endif %}
