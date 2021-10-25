@@ -19,6 +19,12 @@ Infid
             margin-right: 1ch;
             margin-bottom: 0;
         }
+        .button-edit {
+            margin-right: 1ch;
+        }
+        .button-hapus {
+            margin-left: 1ch;
+        }
         @media (max-width: 992px) {
             .box-font-title {
                 font-size: 1.5rem;
@@ -27,6 +33,15 @@ Infid
             .box-font-content {
                 font-size: 2rem;
                 margin-right: 0;
+            }
+            .button-edit {
+                margin-right: 0ch;
+                margin-top: 0.5rem;
+                margin-bottom: 0.25rem;
+            }
+            .button-hapus {
+                margin-left: 0ch;
+                margin-top: 0.25rem;
             }
         }
     </style>
@@ -111,15 +126,18 @@ Infid
                         <p>{{ sebaran_user.provinsi.jumlah_meninggal }}</p>
                     </div>
                 </div>
-                <div class="w-100 d-flex justify-content-center mt-3">
-                    <button type="button" type="button" class="btn btn-secondary col-2" data-bs-toggle="modal" data-bs-target="#editSebaranUserModal" data-provinsi="{{ sebaran_user.provinsi }}">
-                        Edit Provinsi
+                <div class="w-100 d-flex align-items-center align-items-md-start justify-content-md-center mt-md-3 flex-column flex-md-row">
+                    <button type="button" type="button" class="button-edit btn btn-secondary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#editSebaranUserModal" data-provinsi="{{ sebaran_user.provinsi }}">
+                        Edit Provinsi Anda
+                    </button>
+                    <button type="button" type="button" class="button-hapus btn btn-danger col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#hapusSebaranUserModal">
+                        Hapus Provinsi Anda
                     </button>
                 </div>
             {% else %}
                 <div class="w-100 d-flex justify-content-center mt-5">
-                    <button type="button" type="button" class="btn btn-primary col-2" data-bs-toggle="modal" data-bs-target="#addSebaranUserModal">
-                        Tambahkan Provinsi
+                    <button type="button" type="button" class="btn btn-primary col-10 col-md-3" data-bs-toggle="modal" data-bs-target="#addSebaranUserModal">
+                        Tambahkan Provinsi Anda
                     </button>
                 </div>
             {% endif %}
@@ -173,6 +191,23 @@ Infid
                 </div>
                 <div class="modal-footer">
                     <input type="submit" value="Submit" class="edit-sebaranuser btn btn-primary" />
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="hapusSebaranUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Provinsi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <p>Apakah anda yakin akan menghapus data provinsi anda?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Ya" class="hapus-sebaranuser btn btn-primary" />
                 </div>
         </div>
     </div>
@@ -269,9 +304,9 @@ Infid
 
 {% if user.is_authenticated %}
     <div class="row mt-3">
-        <div class="col-5"></div>
+        <div class="col-1 col-md-5"></div>
         <!-- Button trigger addModal -->
-        <button type="button" type="button" class="btn btn-primary col-2" data-bs-toggle="modal" data-bs-target="#addModal">
+        <button type="button" type="button" class="btn btn-primary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addModal">
             Add
         </button>
     </div>
@@ -407,6 +442,7 @@ Infid
                 console.error("Anda belum memilih provinsi")
             }
         })
+
         $(".edit-sebaranuser").click(function() {
             if (!!document.getElementById('modal_provinsi_sebaran_edit').value) {
                 $.ajax({
@@ -428,6 +464,22 @@ Infid
             } else {
                 console.error("Anda belum memilih provinsi")
             }
+        })
+
+        $(".hapus-sebaranuser").click(function() {
+            $.ajax({
+                url: "/sebaran/delete-user",
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                },
+                success: function(result) {
+                    location.reload();
+                },
+                error: function(err) {
+                    console.error(err)
+                }
+            })
         })
     })
 </script>

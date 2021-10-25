@@ -74,3 +74,10 @@ def edit_existing_user(request):
         sebaran_user.save()
     
     return HttpResponseRedirect("/sebaran")
+
+def delete_user(request):
+    if (request.method == "POST"):
+        sebaran_user = SebaranUser.objects.get(user_id=request.user.id)
+        sebaran_user.delete()
+
+    return HttpResponseRedirect("/sebaran")
