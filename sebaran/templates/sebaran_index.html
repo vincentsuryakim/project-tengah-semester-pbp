@@ -152,11 +152,12 @@ Infid
                 <h5 class="modal-title" id="staticBackdropLabel">Tambahkan Provinsi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form>
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
-                        <select class="form-select form-control provinsi" aria-label="Provinsi" id="modal_provinsi_sebaran_add" name="provinsi" required>
-                            <option value="" selected>Provinsi</option>
+                        <select class="form-select form-control provinsi" oninvalid="this.setCustomValidity('Anda belum memilih provinsi')" aria-label="Provinsi" id="modal_provinsi_sebaran_add" name="provinsi" required>
+                            <option value="" selected>Provinsi Anda</option>
                             {% for p in provinsi %}
                                 <option value="{{ p.provinsi }}">{{ p.provinsi }}</option>
                             {% endfor %}
@@ -167,6 +168,7 @@ Infid
                 <div class="modal-footer">
                     <input type="submit" value="Submit" class="add-sebaranuser btn btn-primary" />
                 </div>
+            </form>
         </div>
     </div>
 </div>
@@ -178,6 +180,7 @@ Infid
                 <h5 class="modal-title" id="staticBackdropLabel">Edit Provinsi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form>
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
@@ -192,6 +195,7 @@ Infid
                 <div class="modal-footer">
                     <input type="submit" value="Submit" class="edit-sebaranuser btn btn-primary" />
                 </div>
+            </form>
         </div>
     </div>
 </div>
@@ -204,7 +208,7 @@ Infid
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
                 <div class="modal-body">
-                    <p>Apakah anda yakin akan menghapus data provinsi anda?</p>
+                    <p>Apakah anda yakin ingin menghapus data provinsi anda?</p>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" value="Ya" class="hapus-sebaranuser btn btn-primary" />
@@ -272,6 +276,7 @@ Infid
                     <h5 class="modal-title" id="staticBackdropLabel">Edit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
@@ -279,24 +284,25 @@ Infid
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput2" class="form-label">Terkonfirmasi</label>
-                            <input type="number" class="form-control terkonfirmasi" id="modal_terkonfirmasi" name="jumlah_kasus_terkonfirmasi" value="0" placeholder="Terkonfirmasi">
+                            <input type="number" class="form-control terkonfirmasi" id="modal_terkonfirmasi" name="jumlah_kasus_terkonfirmasi" value="" placeholder="Terkonfirmasi" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput3" class="form-label">Kasus Aktif</label>
-                            <input type="number" class="form-control aktif" id="modal_aktif" name="jumlah_kasus_aktif" value="0" placeholder="Kasus Aktif">
+                            <input type="number" class="form-control aktif" id="modal_aktif" name="jumlah_kasus_aktif" value="" placeholder="Kasus Aktif" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput4" class="form-label">Sembuh</label>
-                            <input type="number" class="form-control sembuh" id="modal_sembuh" name="jumlah_sembuh" value="0" placeholder="Sembuh">
+                            <input type="number" class="form-control sembuh" id="modal_sembuh" name="jumlah_sembuh" value="" placeholder="Sembuh" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput5" class="form-label">Meninggal</label>
-                            <input type="number" class="form-control meninggal" id="modal_meninggal" name="jumlah_meninggal" value="0" placeholder="Meninggal">
+                            <input type="number" class="form-control meninggal" id="modal_meninggal" name="jumlah_meninggal" value="" placeholder="Meninggal" required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <input type="submit" value="Submit" pk="" class="edit-provinsi btn btn-primary" />
                     </div>
+                </form>
             </div>
         </div>
     </div>
@@ -353,6 +359,7 @@ Infid
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- AJAX Related Scripts -->
 <script>
     var sebaranUserModal = document.getElementById('editSebaranUserModal')
     sebaranUserModal.addEventListener('show.bs.modal', function (event) {
@@ -484,6 +491,7 @@ Infid
     })
 </script>
 
+<!-- Chart Script -->
 <script>
     const sebaran_values = "{{ sebaran_values|safe }}".replace(/'/g, '"');
     const sebaran_data = JSON.parse(sebaran_values);

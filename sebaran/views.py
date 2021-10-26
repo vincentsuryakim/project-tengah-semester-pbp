@@ -7,8 +7,7 @@ from django.contrib.auth.models import User
 from .models import Sebaran, SebaranUser
 from .forms import SebaranForm
 
-# Create your views here.
-
+# Index View
 def index(request):
     response = {
         'sebaran': Sebaran.objects.all().order_by('-jumlah_kasus_aktif'),
@@ -23,7 +22,11 @@ def index(request):
     form = SebaranForm(request.POST or None)
 
     if (form.is_valid() and request.method == "POST"):
-        form.save()
+        provinsi = form.data['provinsi']
+
+        # Validasi apakah sudah ada data dengan nama provinsi yang sama pada model Sebaran
+        if (Sebaran.objects.filter(provinsi__iexact=provinsi).count() == 0):
+            form.save()
         return HttpResponseRedirect("/sebaran")
 
     if request.user.is_authenticated:
@@ -34,6 +37,7 @@ def index(request):
 
     return render(request, 'sebaran_index.html', response)
 
+# Mengubah data suatu provinsi pada model Sebaran
 def edit_sebaran(request):
     if (request.method == "POST"):
 
@@ -45,39 +49,59 @@ def edit_sebaran(request):
         sembuh = request.POST.get("sembuh")
         meninggal = request.POST.get("meninggal")
 
-        sebaran = Sebaran.objects.get(id=id)
-        sebaran.provinsi = provinsi
-        sebaran.jumlah_kasus_terkonfirmasi = terkonfirmasi
-        sebaran.jumlah_kasus_aktif = aktif
-        sebaran.jumlah_sembuh = sembuh
-        sebaran.jumlah_meninggal = meninggal
-        sebaran.save()
+        try:
+            sebaran = Sebaran.objects.get(id=id)
+            sebaran.provinsi = provinsi
+            sebaran.jumlah_kasus_terkonfirmasi = terkonfirmasi
+            sebaran.jumlah_kasus_aktif = aktif
+            sebaran.jumlah_sembuh = sembuh
+            sebaran.jumlah_meninggal = meninggal
+            sebaran.save()
+        except Sebaran.DoesNotExist:
+            print(f"Sebaran object with ID: {id} does not exist")
     
     return HttpResponseRedirect("/sebaran")
 
+# Menambahkan provinsi anda ke model SebaranUser
 def edit_user(request):
     if (request.method == "POST"):
         provinsi = request.POST.get("provinsi")
 
+        # Validasi apakah sudah ada data provinsi seorang user pada model SebaranUser
         if (not SebaranUser.objects.filter(user_id=request.user.id).exists()):
-            sebaran_user = SebaranUser(user_id=User.objects.get(id=request.user.id), provinsi=Sebaran.objects.get(provinsi=provinsi))
-            sebaran_user.save()
+            try:
+                sebaran_user = SebaranUser(user_id=User.objects.get(id=request.user.id), provinsi=Sebaran.objects.get(provinsi=provinsi))
+                sebaran_user.save()
+            except User.DoesNotExist:
+                print(f"User object with ID: {request.user.id} does not exist")
+            except Sebaran.DoesNotExist:
+                print(f"Sebaran object with Provinsi: {provinsi} does not exist")
 
     return HttpResponseRedirect("/sebaran")
 
+# Mengubah provinsi anda saat ini pada model SebaranUser
 def edit_existing_user(request):
     if (request.method == "POST"):
         provinsi = request.POST.get("provinsi")
 
-        sebaran_user = SebaranUser.objects.get(user_id=request.user.id)
-        sebaran_user.provinsi = Sebaran.objects.get(provinsi=provinsi)
-        sebaran_user.save()
+        try:
+            sebaran_user = SebaranUser.objects.get(user_id=request.user.id)
+            sebaran_user.provinsi = Sebaran.objects.get(provinsi=provinsi)
+            sebaran_user.save()
+        except SebaranUser.DoesNotExist:
+            print(f"SebaranUser object with User ID: {request.user.id} does not exist")
+        except Sebaran.DoesNotExist:
+            print(f"Sebaran object with Provinsi: {provinsi} does not exist")
     
     return HttpResponseRedirect("/sebaran")
 
+# Menghapus provinsi anda saat ini pada model SebaranUser
 def delete_user(request):
     if (request.method == "POST"):
-        sebaran_user = SebaranUser.objects.get(user_id=request.user.id)
-        sebaran_user.delete()
+        try:
+            sebaran_user = SebaranUser.objects.get(user_id=request.user.id)
+            sebaran_user.delete()
+        except SebaranUser.DoesNotExist:
+            print(f"SebaranUser object with User ID: {request.user.id} does not exist")
 
     return HttpResponseRedirect("/sebaran")
