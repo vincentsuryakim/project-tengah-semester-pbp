@@ -1,0 +1,554 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+Infid
+{% endblock title %}
+
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+    <style>
+        .box-font-title {
+            font-size: 2.5rem;
+            margin-left: 1ch;
+            margin-bottom: 0;
+        }
+        .box-font-content {
+            font-size: 3.5rem;
+            margin-right: 1ch;
+            margin-bottom: 0;
+        }
+        .button-edit {
+            margin-right: 1ch;
+        }
+        .button-hapus {
+            margin-left: 1ch;
+        }
+        @media (max-width: 992px) {
+            .box-font-title {
+                font-size: 1.5rem;
+                margin-left: 0;
+            }
+            .box-font-content {
+                font-size: 2rem;
+                margin-right: 0;
+            }
+            .button-edit {
+                margin-right: 0ch;
+                margin-top: 0.5rem;
+                margin-bottom: 0.25rem;
+            }
+            .button-hapus {
+                margin-left: 0ch;
+                margin-top: 0.25rem;
+            }
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+<h1 class="text-center mt-4">Persebaran Data</h1>
+<div class="row mt-3 mt-md-4 px-3">
+    <div class="col-md-1"></div>
+    <div class="col-12 col-md-10">
+        <canvas id="sebaranChart"></canvas>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="d-none d-md-block col-md-1"></div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/covid.jpeg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Terkonfirmasi</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ terkonfirmasi }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5 mt-3 mt-md-0">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/aktif.png' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Kasus Aktif</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ aktif }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="d-none d-md-block col-md-1"></div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/sembuh.png' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Sembuh</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ sembuh }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-11 mx-auto mx-md-0 col-md-5 mt-3 mt-md-0">
+        <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
+            <img src="{% static 'sebaran/meninggal.jpg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
+                <h4 class="box-font-title" style="font-weight: 300;">Meninggal</h4>
+                <p class="box-font-content" style="font-weight: 700;">{{ meninggal }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+    <div class="row" style="margin-top: 3rem;">
+        <div class="col-1"></div>
+        <div class="col-10 bg-light shadow-lg py-5">
+            <h2 class="text-center">Provinsi Anda Saat Ini</h2>
+            {% if sebaran_user != None %}
+                <div class="row d-flex justify-content-center text-center" style="margin-top: 2.25rem;">
+                    <div class="col-12 col-md-2">
+                        <h4>Provinsi</h4>
+                        <p>{{ sebaran_user.provinsi }}</p>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <h4>Terkonfirmasi</h4>
+                        <p>{{ sebaran_user.provinsi.jumlah_kasus_terkonfirmasi }}</p>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <h4>Kasus Aktif</h4>
+                        <p>{{ sebaran_user.provinsi.jumlah_kasus_aktif }}</p>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <h4>Sembuh</h4>
+                        <p>{{ sebaran_user.provinsi.jumlah_sembuh }}</p>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <h4>Meninggal</h4>
+                        <p>{{ sebaran_user.provinsi.jumlah_meninggal }}</p>
+                    </div>
+                </div>
+                <div class="w-100 d-flex align-items-center align-items-md-start justify-content-md-center mt-md-3 flex-column flex-md-row">
+                    <button type="button" class="button-edit btn btn-secondary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#editSebaranUserModal" data-provinsi="{{ sebaran_user.provinsi }}">
+                        Edit Provinsi Anda
+                    </button>
+                    <button type="button" class="button-hapus btn btn-danger col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#hapusSebaranUserModal">
+                        Hapus Provinsi Anda
+                    </button>
+                </div>
+            {% else %}
+                <div class="w-100 d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary col-10 col-md-3" data-bs-toggle="modal" data-bs-target="#addSebaranUserModal">
+                        Tambahkan Provinsi Anda
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+<div class="modal fade" id="addSebaranUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Tambahkan Provinsi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
+                        <select class="form-select form-control provinsi" oninvalid="this.setCustomValidity('Anda belum memilih provinsi')" aria-label="Provinsi" id="modal_provinsi_sebaran_add" name="provinsi" required>
+                            <option value="" selected>Provinsi Anda</option>
+                            {% for p in provinsi %}
+                                <option value="{{ p.provinsi }}">{{ p.provinsi }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Submit" class="add-sebaranuser btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editSebaranUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Provinsi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
+                        <select class="form-select form-control provinsi" aria-label="Provinsi" id="modal_provinsi_sebaran_edit" name="provinsi" required>
+                            {% for p in provinsi %}
+                                <option value="{{ p.provinsi }}">{{ p.provinsi }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Submit" class="edit-sebaranuser btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="hapusSebaranUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Provinsi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <p>Apakah anda yakin ingin menghapus data provinsi anda?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Ya" class="hapus-sebaranuser btn btn-primary" />
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="w-100 d-flex justify-content-center" style="overflow-x:scroll; margin-top: 3rem;">
+    <table class="table table-hover w-75">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Provinsi</th>
+            <th scope="col">Terkonfirmasi</th>
+            <th scope="col">Kasus Aktif</th>
+            <th scope="col">Sembuh</th>
+            <th scope="col">Meninggal</th>
+            {% if user.is_authenticated and user.is_superuser %}
+                <th scope="col">Actions</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+            {% if sebaran %}
+                {% for s in sebaran %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ s.provinsi }}</td>
+                        <td>{{ s.jumlah_kasus_terkonfirmasi }}</td>
+                        <td>{{ s.jumlah_kasus_aktif }}</td>
+                        <td>{{ s.jumlah_sembuh }}</td>
+                        <td>{{ s.jumlah_meninggal }}</td>
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <td>
+                                <!-- Button trigger editModal -->
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editModal"
+                                    data-provinsi="{{ s.provinsi }}"
+                                    data-terkonfirmasi="{{ s.jumlah_kasus_terkonfirmasi }}"
+                                    data-aktif="{{ s.jumlah_kasus_aktif }}"
+                                    data-sembuh="{{ s.jumlah_sembuh }}"
+                                    data-meninggal="{{ s.jumlah_meninggal }}"
+                                    data-pk="{{ s.pk }}"
+                                >
+                                    Edit
+                                </button>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+      </table>
+</div>
+
+{% if user.is_authenticated and user.is_superuser %}
+    <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
+                            <input type="text" class="form-control provinsi" id="modal_provinsi" name="provinsi" value="" placeholder="Provinsi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput2" class="form-label">Terkonfirmasi</label>
+                            <input type="number" class="form-control terkonfirmasi" id="modal_terkonfirmasi" name="jumlah_kasus_terkonfirmasi" value="" placeholder="Terkonfirmasi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput3" class="form-label">Kasus Aktif</label>
+                            <input type="number" class="form-control aktif" id="modal_aktif" name="jumlah_kasus_aktif" value="" placeholder="Kasus Aktif" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput4" class="form-label">Sembuh</label>
+                            <input type="number" class="form-control sembuh" id="modal_sembuh" name="jumlah_sembuh" value="" placeholder="Sembuh" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput5" class="form-label">Meninggal</label>
+                            <input type="number" class="form-control meninggal" id="modal_meninggal" name="jumlah_meninggal" value="" placeholder="Meninggal" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" value="Submit" pk="" class="edit-provinsi btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if user.is_authenticated and user.is_superuser %}
+    <div class="row mt-3">
+        <div class="col-1 col-md-5"></div>
+        <!-- Button trigger addModal -->
+        <button type="button" class="btn btn-primary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addModal">
+            Add
+        </button>
+    </div>
+
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Provinsi</label>
+                            <input type="text" class="form-control to" id="modal_provinsi_form" name="provinsi" value="" placeholder="Provinsi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput2" class="form-label">Terkonfirmasi</label>
+                            <input type="number" class="form-control from" id="modal_terkonfirmasi_form" name="jumlah_kasus_terkonfirmasi" value="0" placeholder="Terkonfirmasi">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput3" class="form-label">Kasus Aktif</label>
+                            <input type="number" class="form-control title" id="modal_aktif_form" name="jumlah_kasus_aktif" value="0" placeholder="Kasus Aktif">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput4" class="form-label">Sembuh</label>
+                            <input type="number" class="form-control title" id="modal_sembuh_form" name="jumlah_sembuh" value="0" placeholder="Sembuh">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput5" class="form-label">Meninggal</label>
+                            <input type="number" class="form-control title" id="modal_meninggal_form" name="jumlah_meninggal" value="0" placeholder="Meninggal">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Submit" pk="" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- AJAX Related Scripts -->
+{% if user.is_authenticated %}
+<script>
+    var sebaranUserModal = document.getElementById('editSebaranUserModal')
+    sebaranUserModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-* attributes
+        var provinsi = button.getAttribute('data-provinsi')
+        
+        // Get the modal's content.
+        var modalBodyProvinsi = sebaranUserModal.querySelector('.modal-body .provinsi')
+
+        modalBodyProvinsi.value = provinsi
+    })
+
+    $(document).ready(function() {
+        $(".add-sebaranuser").click(function() {
+            if (!!document.getElementById('modal_provinsi_sebaran_add').value) {
+                $.ajax({
+                    url: "/sebaran/edit-user",
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    data: {
+                        "provinsi": document.getElementById('modal_provinsi_sebaran_add').value
+                    },
+                    success: function(result) {
+                        location.reload();
+                    },
+                    error: function(err) {
+                        console.error(err)
+                    }
+                })
+            } else {
+                console.error("Anda belum memilih provinsi")
+            }
+        })
+
+        $(".edit-sebaranuser").click(function() {
+            if (!!document.getElementById('modal_provinsi_sebaran_edit').value) {
+                $.ajax({
+                    url: "/sebaran/edit-existing-user",
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    data: {
+                        "provinsi": document.getElementById('modal_provinsi_sebaran_edit').value
+                    },
+                    success: function(result) {
+                        location.reload();
+                    },
+                    error: function(err) {
+                        console.error(err)
+                    }
+                })
+            } else {
+                console.error("Anda belum memilih provinsi")
+            }
+        })
+
+        $(".hapus-sebaranuser").click(function() {
+            $.ajax({
+                url: "/sebaran/delete-user",
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                },
+                success: function(result) {
+                    location.reload();
+                },
+                error: function(err) {
+                    console.error(err)
+                }
+            })
+        })
+    })
+</script>
+{% endif %}
+
+<!-- AJAX Related Scripts for Superusers -->
+{% if user.is_authenticated and user.is_superuser %}
+    <script>
+        var editModal = document.getElementById('editModal')
+        editModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-* attributes
+            var provinsi = button.getAttribute('data-provinsi')
+            var terkonfirmasi = button.getAttribute('data-terkonfirmasi')
+            var aktif = button.getAttribute('data-aktif')
+            var sembuh = button.getAttribute('data-sembuh')
+            var meninggal = button.getAttribute('data-meninggal')
+            var pk = button.getAttribute('data-pk')
+            
+            // Get the modal's content.
+            var modalBodyProvinsi = editModal.querySelector('.modal-body .provinsi')
+            var modalBodyTerkonfirmasi = editModal.querySelector('.modal-body .terkonfirmasi')
+            var modalBodyAktif = editModal.querySelector('.modal-body .aktif')
+            var modalBodySembuh = editModal.querySelector('.modal-body .sembuh')
+            var modalBodyMeninggal = editModal.querySelector('.modal-body .meninggal')
+            var modalSaveButton = editModal.getElementsByClassName("edit-provinsi")
+
+            modalBodyProvinsi.value = provinsi
+            modalBodyTerkonfirmasi.value = terkonfirmasi
+            modalBodyAktif.value = aktif
+            modalBodySembuh.value = sembuh
+            modalBodyMeninggal.value = meninggal
+            modalSaveButton.pk = pk
+        })
+
+        $(document).ready(function() {
+            $(".edit-provinsi").click(function() {
+                $.ajax({
+                    url: "/sebaran/edit",
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    data: {
+                        "id": editModal.getElementsByClassName("edit-provinsi").pk,
+                        "provinsi": document.getElementById('modal_provinsi').value,
+                        "terkonfirmasi": document.getElementById('modal_terkonfirmasi').value,
+                        "aktif": document.getElementById('modal_aktif').value,
+                        "sembuh": document.getElementById('modal_sembuh').value,
+                        "meninggal": document.getElementById('modal_meninggal').value
+                    },
+                    success: function(result) {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.error(err)
+                    }
+                })
+            })
+        })
+    </script>
+{% endif %}
+
+<!-- Chart Script -->
+<script>
+    const sebaran_values = "{{ sebaran_values|safe }}".replace(/'/g, '"');
+    const sebaran_data = JSON.parse(sebaran_values);
+
+    let d_labels = []
+    let d_data_aktif = []
+
+    for (let i=0; i<sebaran_data.length; i++) {
+        d_labels.push(sebaran_data[i].provinsi)
+        d_data_aktif.push(sebaran_data[i].jumlah_kasus_aktif)
+    }
+
+    const ctx = document.getElementById('sebaranChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: d_labels,
+            datasets: [
+                {
+                    label: 'Jumlah Kasus Aktif per Provinsi',
+                    data: d_data_aktif,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock content %}

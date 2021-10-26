@@ -10,6 +10,8 @@
 
         <!-- Initialize Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        {% block head %} {% endblock head %}
     
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
@@ -38,7 +40,7 @@
     <body>
         <nav class="navbar navbar-expand-lg text-white navbar-dark" style="background-color: #152636; font-family: Poppins;">
             <div class="container-fluid d-flex">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="{% static 'LogoInfid.png' %}" alt="Logo" height="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +61,7 @@
                             <a class="nav-link text-white text-center w-100" href="#">Kontak Layanan</a>
                         </li>
                         <li class="nav-item d-flex align-self-center li-cust">
-                            <a class="nav-link text-white text-center w-100" href="#">Persebaran Data</a>
+                            <a class="nav-link text-white text-center w-100" href="/sebaran">Persebaran Data</a>
                         </li>
                         <li class="nav-item d-flex align-self-center li-cust">
                             <a class="nav-link text-white text-center w-100" href="#">Edukasi Protokol</a>
@@ -70,8 +72,8 @@
                     </ul>
                     {% if not user.is_authenticated %}
                         <form class="d-flex justify-content-center">
-                            <button type="button" class="mr-3 btn btn-link text-white text-decoration-none">Sign Up</button>
-                            <button class="btn btn-outline-success ml-3 text-dark px-3" style="background-color: #00ADB5;" type="submit">Log In</button>
+                            <button type="button" class="mr-3 btn btn-link text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                            <button type="button" class="btn btn-outline-success ml-3 text-dark px-3" style="background-color: #00ADB5;" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
                         </form>
                     {% else %}
                         <p class="text-center authenticated_cust">Hi, {{ user.first_name }}!</p>
@@ -80,11 +82,110 @@
             </div>
         </nav>
 
-        {% block content %} {% endblock content%}
+        <div class="modal fade" id="signUpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Sign Up</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="/register/">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                {% csrf_token %}
+                                <label for="exampleFormControlInput1" class="form-label">Username</label>
+                                <input type="text" class="form-control username" id="modal_username_signup" name="username" value="" placeholder="Username" required>
+
+                                <label for="exampleFormControlInput1" class="form-label mt-3">Email</label>
+                                <input type="text" class="form-control username" id="modal_email_signup" name="email" value="" placeholder="Email" required>
+
+                                <label for="exampleFormControlInput1" class="form-label mt-3">Password</label>
+                                <input type="password" class="form-control password" id="modal_password_signup" name="password" value="" placeholder="Password" required>
+
+                                <label for="exampleFormControlInput1" class="form-label mt-3">Confirm Password</label>
+                                <input type="password" class="form-control password" id="modal_confirm_password_signup" name="confirmpassword" value="" placeholder="Confirm Password" required>
+
+                                <label for="exampleFormControlInput1" class="form-label mt-3">First Name</label>
+                                <input type="text" class="form-control first_name" id="modal_first_name_signup" name="first_name" value="" placeholder="First Name" required>
+
+                                <label for="exampleFormControlInput1" class="form-label mt-3">Last Name</label>
+                                <input type="text" class="form-control last_name" id="modal_last_name_signup" name="last_name" value="" placeholder="Last Name" required>
+                            </div>
+        
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" value="Sign Up" class="signup-submit-button btn btn-primary" id="signup-submit-button" disabled />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="/login/">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                {% csrf_token %}
+                                <label for="exampleFormControlInput1" class="form-label">Username</label>
+                                <input type="text" class="form-control username" id="modal_username" name="username" value="" placeholder="Username" required>
+
+                                <label for="exampleFormControlInput1" class="form-label mt-3">Password</label>
+                                <input type="password" class="form-control password" id="modal_password" name="password" value="" placeholder="Password" required>
+                            </div>
+        
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" value="Login" class="login-submit-button btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% block content %} {% endblock content %}
 
         <!-- Initialize JQuery and Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <!-- Other Scripts -->
+        <script>
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+        </script>
+
+        <!-- JQuery Scripts -->
+        <script>
+            $(document).ready(function() {
+                $("#modal_confirm_password_signup").on('input', function() {
+                    if (this.value === document.getElementById('modal_password_signup').value) {
+                        document.getElementById('signup-submit-button').disabled = false
+                    } else {
+                        document.getElementById('signup-submit-button').disabled = true
+                    }
+                });
+            })
+        </script>
+
+        {% block script %} {% endblock script %} 
   </body>
 </html>
