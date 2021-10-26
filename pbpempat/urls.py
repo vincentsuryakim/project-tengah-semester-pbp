@@ -17,6 +17,7 @@ from django.urls import path, re_path, include
 from django.contrib import admin
 import Infid.urls as Infid
 import sebaran.urls as sebaran
+import RSRujukan.urls as rsrujukan
 
 from .views import login, register, logout
 
@@ -24,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(Infid)),
     path('sebaran/', include(sebaran)),
+    path('rsrujukan/', include(rsrujukan)),
     path('login/', login),
     path('register/', register),
     path('logout/', logout),

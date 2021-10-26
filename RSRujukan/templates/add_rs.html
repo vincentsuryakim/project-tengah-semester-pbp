@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    Booking RS
+{% endblock title %}
+    
+{% block content %}
+{% if user.is_authenticated and user.is_superuser %}
+<div class="container" style="width: 25%; margin-top: 5%;">
+    <h4 class="text-center">Add RS</h4>
+    <form action="" method="POST" id="form" style="max-width: 350px;">
+        {% csrf_token %} 
+        {% for form in forms %}
+            <div class="form-group">
+                {{form.label}}
+                <br>
+                <div style="width: 300px;">
+                    {{form}}
+                </div>
+                <br>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+    </form>
+</div>
+{% else %}
+<div class="container text-center" style="margin-top : 8%;">
+    <div class="jumbotron">
+        <p class="lead">Site ini tidak dapat diakses</p>
+        <hr class="my-4">
+        <p></p>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+
+
+{% block script %}
+<script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", submitHandler);
+
+    function submitHandler(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'add_rs' %}",
+            data: $("#form").serialize(),
+            dataType: "json",
+            success: function(data){
+                if (data.msg === 'Success'){
+                    form.reset();
+                    alert('Form submitted');
+                }
+            }
+        })
+    }
+</script>
+{% endblock script %}
+    
