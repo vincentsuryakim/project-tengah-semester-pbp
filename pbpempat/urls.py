@@ -18,8 +18,13 @@ from django.contrib import admin
 import Infid.urls as Infid
 import sebaran.urls as sebaran
 
+from .views import login, register, logout
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(Infid)),
     path('sebaran/', include(sebaran)),
+    path('login/', login),
+    path('register/', register),
+    path('logout/', logout),
 ]
