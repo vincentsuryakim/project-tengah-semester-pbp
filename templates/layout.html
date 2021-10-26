@@ -86,16 +86,12 @@
                                 </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="#">
+                                    <form method="POST" action="auth">
                                     {% csrf_token %}
-                                    
                                     <div class="row">
                                         <div class="form-holder">
                                             <div class="form-content">
                                                 <div class="form-items">
-                                                    
-                                                    <form class="requires-validation" novalidate>
-                            
                                                         <div class="col-md-12">
                                                            <input class="form-control" type="text" name="username" placeholder="Username" required>
                                                            <div class="valid-feedback">Username field is valid!</div>
@@ -119,13 +115,11 @@
                                                        </div>
                             
                                                         <div class="form-button mt-3">
-                                                            <button style="width: 100%; background-color: #00ADB5;" id="submit" type="submit" class="btn btn-primary" value="Signup">Register</button>
+                                                            <button style="width: 100%; background-color: #00ADB5;" name ="submit" id="submit" type="submit" class="btn btn-primary" value="Signup">Register</button>
 
                                                         </div>
 
-                                                        <br>
-
-                                                    </form>
+                                                        <br>           
                                                 </div>
                                             </div>
                                         </div>
@@ -163,7 +157,7 @@
                                                                 <form class="requires-validation" novalidate>
                                         
                                                                     <div class="col-md-12">
-                                                                       <input class="form-control" type="text" name="name" placeholder="Name" required>
+                                                                       <input class="form-control" type="text" name="username" placeholder="Name" required>
                                                                        <div class="valid-feedback">Username field is valid!</div>
                                                                        <div class="invalid-feedback">Username field cannot be blank!</div>
                                                                     </div>
@@ -194,7 +188,7 @@
                             </div>
                     {% else %}
                         <p class="text-center authenticated_cust">Hi, {{ user.first_name }}!</p>
-                        <a class="btn myButton" href="{% url 'Infid:logout' %}">Logout</a>
+                        <a class="btn myButton" href="#">Logout</a>
                     {% endif %}
                 </div>
             </div>

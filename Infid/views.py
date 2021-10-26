@@ -8,14 +8,14 @@ def index(request):
     response = {'msg': 'Hello World'}
     return render(request, 'index_Infid.html', response)
 
-def index(request):
+def loginFunction(request):
     if request.method == "POST":
         if request.POST.get('submit') == 'Login':
             # your sign in logic goes here
             if request.user.is_authenticated:
-                return redirect('/')
+                return redirect('Infid:index')
             else:
-                html = 'templates/layaout.html'
+                html = 'templates/layout.html'
                 if request.method == 'POST':
                     username = request.POST.get('username')
                     password = request.POST.get('password')
@@ -24,7 +24,7 @@ def index(request):
 
                     if user is not None:
                         login(request, user)
-                        return redirect('/')
+                        return redirect('Infid:index')
                     else:
                         messages.info(request, 'Username or password is incorrect')
                         return render(request, html)
@@ -42,8 +42,9 @@ def index(request):
                     if form.is_valid():
                         form.save()
                         user = form.cleaned_data.get('username')
+                        print("test")
                         messages.success(request, 'Account was created for ' + user)
-                        return redirect('/')
+                        return redirect('Infid:index')
 
                 context = {'form' : form}
                 html = 'templates/layout.html'
