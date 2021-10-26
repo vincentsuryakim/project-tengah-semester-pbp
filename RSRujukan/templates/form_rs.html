@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    Booking
+{% endblock title %}
+    
+
+{% block content %}
+{% if user.is_authenticated and user.is_superuser %}
+    <div class="container">
+        <div class="text-center" style="margin-top: 40px; margin-bottom: 30px;">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addbook" style="background-color: chocolate;">
+                Add Booking
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="addbook" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: fit-content;">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+            <h5 class="modal-title w-100 font-weight-bold" id="modalLabel">Booking Form</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-3">
+                <form action="" id='form' method="POST" style="max-width: 350px;">
+                    {% csrf_token %} 
+                    {% for form in forms %}
+                        <div class="form-group">
+                            {{form.label}}
+                            <br>
+                            {{form}}
+                            <br>
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="container" style="background-color: white; margin-left: 50p;">
+        <div class="container">
+            <h2 class="text-center" style="margin-bottom: 30px;">Daftar Booking</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Umur</th>
+                    <th>Nomor Telfon</th>
+                    <th scope="col">Rumah Sakit</th>
+                    </tr>
+                </thead>
+                <tbody id="display">
+                    {% for orang in booking %}
+                    <tr>
+                        <td>{{orang.nama}}</td>
+                        <td>{{orang.umur}}</td>
+                        <td>{{orang.noTelfon}}</td>
+                        <td>{{orang.rumahSakit}}</td>
+                        <td>
+                            <form action="{% url 'book_delete' orang.id %}" method="POST" id="delete_form_{{orang.id}}">
+                                {% csrf_token %}
+                                <input type="button" onclick="delete_book('{{orang.id}}')" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+        </div>  
+    </div>
+{% else %}
+<div class="container text-center" style="margin-top : 8%;">
+    <div class="jumbotron">
+        <p class="lead">Site ini tidak dapat diakses</p>
+        <hr class="my-4">
+        <p></p>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+
+
+{% block script %}
+<script src="{% static 'js/scripts_rs.js' %}"></script>
+<script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", submitHandler);
+
+    function submitHandler(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'booking' %}",
+            data: $("#form").serialize(),
+            dataType: "json",
+            success: function(data){
+                if (data.msg === 'Success'){
+                    form.reset();
+                    location.reload();
+                    alert('Form submitted');
+                }
+            }
+        })
+    }
+</script>
+<script>
+    function delete_book(id) {
+        $.ajax({
+            type: "POST",
+            url: $('#delete_form_'+id).attr('action'),
+            data: $('#delete_form_'+id).serialize(),
+            success: function (data) {
+                location.reload();
+                alert('Deleted')
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type: "GET",
+                url: "{% url 'update_data' %}",
+                success: function(response){
+                },
+                error: function(response){
+                    alert("Error getting data")
+                }
+            });
+        },1000);
+    });
+</script>
+{% endblock script %}
+    
