@@ -16,8 +16,10 @@ Including another URLconf
 from django.urls import path, re_path, include
 from django.contrib import admin
 import Infid.urls as Infid
+import edukasiProtokol.urls as edukasiProtokol
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(Infid)),
+    path('edukasiProtokol/', include(edukasiProtokol))
 ]
