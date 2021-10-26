@@ -127,16 +127,16 @@ Infid
                     </div>
                 </div>
                 <div class="w-100 d-flex align-items-center align-items-md-start justify-content-md-center mt-md-3 flex-column flex-md-row">
-                    <button type="button" type="button" class="button-edit btn btn-secondary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#editSebaranUserModal" data-provinsi="{{ sebaran_user.provinsi }}">
+                    <button type="button" class="button-edit btn btn-secondary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#editSebaranUserModal" data-provinsi="{{ sebaran_user.provinsi }}">
                         Edit Provinsi Anda
                     </button>
-                    <button type="button" type="button" class="button-hapus btn btn-danger col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#hapusSebaranUserModal">
+                    <button type="button" class="button-hapus btn btn-danger col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#hapusSebaranUserModal">
                         Hapus Provinsi Anda
                     </button>
                 </div>
             {% else %}
                 <div class="w-100 d-flex justify-content-center mt-5">
-                    <button type="button" type="button" class="btn btn-primary col-10 col-md-3" data-bs-toggle="modal" data-bs-target="#addSebaranUserModal">
+                    <button type="button" class="btn btn-primary col-10 col-md-3" data-bs-toggle="modal" data-bs-target="#addSebaranUserModal">
                         Tambahkan Provinsi Anda
                     </button>
                 </div>
@@ -227,7 +227,7 @@ Infid
             <th scope="col">Kasus Aktif</th>
             <th scope="col">Sembuh</th>
             <th scope="col">Meninggal</th>
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and user.is_superuser %}
                 <th scope="col">Actions</th>
             {% endif %}
           </tr>
@@ -242,7 +242,7 @@ Infid
                         <td>{{ s.jumlah_kasus_aktif }}</td>
                         <td>{{ s.jumlah_sembuh }}</td>
                         <td>{{ s.jumlah_meninggal }}</td>
-                        {% if user.is_authenticated %}
+                        {% if user.is_authenticated and user.is_superuser %}
                             <td>
                                 <!-- Button trigger editModal -->
                                 <button
@@ -268,7 +268,7 @@ Infid
       </table>
 </div>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.is_superuser %}
     <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -308,11 +308,11 @@ Infid
     </div>
 {% endif %}
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.is_superuser %}
     <div class="row mt-3">
         <div class="col-1 col-md-5"></div>
         <!-- Button trigger addModal -->
-        <button type="button" type="button" class="btn btn-primary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addModal">
+        <button type="button" class="btn btn-primary col-10 col-md-2" data-bs-toggle="modal" data-bs-target="#addModal">
             Add
         </button>
     </div>
@@ -360,6 +360,7 @@ Infid
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- AJAX Related Scripts -->
+{% if user.is_authenticated %}
 <script>
     var sebaranUserModal = document.getElementById('editSebaranUserModal')
     sebaranUserModal.addEventListener('show.bs.modal', function (event) {
@@ -374,59 +375,7 @@ Infid
         modalBodyProvinsi.value = provinsi
     })
 
-    var editModal = document.getElementById('editModal')
-    editModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget
-        // Extract info from data-* attributes
-        var provinsi = button.getAttribute('data-provinsi')
-        var terkonfirmasi = button.getAttribute('data-terkonfirmasi')
-        var aktif = button.getAttribute('data-aktif')
-        var sembuh = button.getAttribute('data-sembuh')
-        var meninggal = button.getAttribute('data-meninggal')
-        var pk = button.getAttribute('data-pk')
-        
-        // Get the modal's content.
-        var modalBodyProvinsi = editModal.querySelector('.modal-body .provinsi')
-        var modalBodyTerkonfirmasi = editModal.querySelector('.modal-body .terkonfirmasi')
-        var modalBodyAktif = editModal.querySelector('.modal-body .aktif')
-        var modalBodySembuh = editModal.querySelector('.modal-body .sembuh')
-        var modalBodyMeninggal = editModal.querySelector('.modal-body .meninggal')
-        var modalSaveButton = editModal.getElementsByClassName("edit-provinsi")
-
-        modalBodyProvinsi.value = provinsi
-        modalBodyTerkonfirmasi.value = terkonfirmasi
-        modalBodyAktif.value = aktif
-        modalBodySembuh.value = sembuh
-        modalBodyMeninggal.value = meninggal
-        modalSaveButton.pk = pk
-    })
-
     $(document).ready(function() {
-        $(".edit-provinsi").click(function() {
-            $.ajax({
-                url: "/sebaran/edit",
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": getCookie("csrftoken")
-                },
-                data: {
-                    "id": editModal.getElementsByClassName("edit-provinsi").pk,
-                    "provinsi": document.getElementById('modal_provinsi').value,
-                    "terkonfirmasi": document.getElementById('modal_terkonfirmasi').value,
-                    "aktif": document.getElementById('modal_aktif').value,
-                    "sembuh": document.getElementById('modal_sembuh').value,
-                    "meninggal": document.getElementById('modal_meninggal').value
-                },
-                success: function(result) {
-                    location.reload();
-                },
-                error: function (err) {
-                    console.error(err)
-                }
-            })
-        })
-
         $(".add-sebaranuser").click(function() {
             if (!!document.getElementById('modal_provinsi_sebaran_add').value) {
                 $.ajax({
@@ -490,6 +439,66 @@ Infid
         })
     })
 </script>
+{% endif %}
+
+<!-- AJAX Related Scripts for Superusers -->
+{% if user.is_authenticated and user.is_superuser %}
+    <script>
+        var editModal = document.getElementById('editModal')
+        editModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-* attributes
+            var provinsi = button.getAttribute('data-provinsi')
+            var terkonfirmasi = button.getAttribute('data-terkonfirmasi')
+            var aktif = button.getAttribute('data-aktif')
+            var sembuh = button.getAttribute('data-sembuh')
+            var meninggal = button.getAttribute('data-meninggal')
+            var pk = button.getAttribute('data-pk')
+            
+            // Get the modal's content.
+            var modalBodyProvinsi = editModal.querySelector('.modal-body .provinsi')
+            var modalBodyTerkonfirmasi = editModal.querySelector('.modal-body .terkonfirmasi')
+            var modalBodyAktif = editModal.querySelector('.modal-body .aktif')
+            var modalBodySembuh = editModal.querySelector('.modal-body .sembuh')
+            var modalBodyMeninggal = editModal.querySelector('.modal-body .meninggal')
+            var modalSaveButton = editModal.getElementsByClassName("edit-provinsi")
+
+            modalBodyProvinsi.value = provinsi
+            modalBodyTerkonfirmasi.value = terkonfirmasi
+            modalBodyAktif.value = aktif
+            modalBodySembuh.value = sembuh
+            modalBodyMeninggal.value = meninggal
+            modalSaveButton.pk = pk
+        })
+
+        $(document).ready(function() {
+            $(".edit-provinsi").click(function() {
+                $.ajax({
+                    url: "/sebaran/edit",
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    data: {
+                        "id": editModal.getElementsByClassName("edit-provinsi").pk,
+                        "provinsi": document.getElementById('modal_provinsi').value,
+                        "terkonfirmasi": document.getElementById('modal_terkonfirmasi').value,
+                        "aktif": document.getElementById('modal_aktif').value,
+                        "sembuh": document.getElementById('modal_sembuh').value,
+                        "meninggal": document.getElementById('modal_meninggal').value
+                    },
+                    success: function(result) {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.error(err)
+                    }
+                })
+            })
+        })
+    </script>
+{% endif %}
 
 <!-- Chart Script -->
 <script>
