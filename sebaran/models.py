@@ -15,7 +15,7 @@ class Sebaran(models.Model):
     
 
 class SebaranUser(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_id = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     provinsi = models.ForeignKey(Sebaran, on_delete=models.CASCADE)
 
     def __str__(self):

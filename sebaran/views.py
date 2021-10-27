@@ -3,6 +3,7 @@ from django.db.models import Sum
 from django.db.models.functions import Lower
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 from .models import Sebaran, SebaranUser
 from .forms import SebaranForm
@@ -67,15 +68,15 @@ def edit_user(request):
     if (request.method == "POST" and request.user.is_authenticated):
         provinsi = request.POST.get("provinsi")
 
-        # Validasi apakah sudah ada data provinsi seorang user pada model SebaranUser
-        if (SebaranUser.objects.filter(user_id=request.user.id).count() == 0):
-            try:
-                sebaran_user = SebaranUser(user_id=User.objects.get(id=request.user.id), provinsi=Sebaran.objects.get(provinsi=provinsi))
-                sebaran_user.save()
-            except User.DoesNotExist:
-                print(f"User object with ID: {request.user.id} does not exist")
-            except Sebaran.DoesNotExist:
-                print(f"Sebaran object with Provinsi: {provinsi} does not exist")
+        try:
+            sebaran_user = SebaranUser(user_id=User.objects.get(id=request.user.id), provinsi=Sebaran.objects.get(provinsi=provinsi))
+            sebaran_user.save()
+        except User.DoesNotExist:
+            print(f"User object with ID: {request.user.id} does not exist")
+        except Sebaran.DoesNotExist:
+            print(f"Sebaran object with Provinsi: {provinsi} does not exist")
+        except IntegrityError:
+            print(f"SebaranUser object with User ID: {request.user.id} already exists")
 
     return HttpResponseRedirect("/sebaran")
 
