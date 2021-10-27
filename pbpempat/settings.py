@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Apps
     'Infid',
     'sebaran',
+    'TimPakar',
 ]
 
 MIDDLEWARE = [
