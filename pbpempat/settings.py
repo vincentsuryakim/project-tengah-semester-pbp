@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Infid',
     'sebaran',
     'RSRujukan',
+    'layananisolasi',
 ]
 
 MIDDLEWARE = [

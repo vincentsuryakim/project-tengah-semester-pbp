@@ -18,6 +18,7 @@ from django.contrib import admin
 import Infid.urls as Infid
 import sebaran.urls as sebaran
 import RSRujukan.urls as rsrujukan
+import layananisolasi.urls as layananisolasi
 
 from .views import login, register, logout
 
@@ -29,4 +30,5 @@ urlpatterns = [
     path('login/', login),
     path('register/', register),
     path('logout/', logout),
+    path('layananisolasi/', include(layananisolasi)),
 ]
