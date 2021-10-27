@@ -21,7 +21,7 @@ def index(request):
 
     form = SebaranForm(request.POST or None)
 
-    if (form.is_valid() and request.method == "POST"):
+    if (form.is_valid() and request.method == "POST" and request.user.is_superuser):
         provinsi = form.data['provinsi']
 
         # Validasi apakah sudah ada data dengan nama provinsi yang sama pada model Sebaran

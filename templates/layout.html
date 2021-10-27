@@ -41,7 +41,7 @@
         <nav class="navbar navbar-expand-lg text-white navbar-dark" style="background-color: #152636; font-family: Poppins;">
             <div class="container-fluid d-flex">
                 <a class="navbar-brand" href="/">
-                    <img src="{% static 'LogoInfid.png' %}" alt="Logo" height="50">
+                    <img src="{% static 'images/LogoInfid.png' %}" alt="Logo" height="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -151,7 +151,9 @@
             </div>
         </div>
 
-        {% block content %} {% endblock content %}
+        {% block content %}
+            {% block js %}{% endblock js %}
+        {% endblock content %}
 
         <div class="position-fixed d-flex flex-column align-items-end" style="bottom: 1.25rem; right: 1.25rem;">
             <button type="button" class="btn btn-secondary" onclick="scrollToTop()" style="width: 2.5rem; height: 2.5rem;">↑</button>
