@@ -17,6 +17,7 @@ from django.urls import path, re_path, include
 from django.contrib import admin
 import Infid.urls as Infid
 import sebaran.urls as sebaran
+import TimPakar.urls as TimPakar
 import RSRujukan.urls as rsrujukan
 
 from .views import login, register, logout
@@ -29,4 +30,5 @@ urlpatterns = [
     path('login/', login),
     path('register/', register),
     path('logout/', logout),
+    path('timPakarCovid/', include(TimPakar)),
 ]
