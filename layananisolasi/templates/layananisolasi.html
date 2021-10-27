@@ -50,8 +50,6 @@ Infid
     left: 50%;
     top: 0;
     }
-
-
     .timeline div {
     padding: 0;
     height: 40px;
@@ -88,12 +86,48 @@ Infid
     left: 50%;
     top: calc(50% - 3px);
     }
+    
+    .typewriter {
+    font: Poppins;
+	display: inline-table;
+    margin-left: 250px;
+    }
+    .typewriter-text {
+        display: inline-block;
+        overflow: hidden;
+        
+        animation: typing 7s steps(30, end), blink .90s step-end infinite;
+        white-space: nowrap;
+        font-size: 17px;
+        font-weight: 400;
+        border-right: 4px solid #00ADB5;
+        box-sizing: border-box;
+    }
 
+    @keyframes typing {
+        from { 
+            width: 0% 
+        }
+        to { 
+            width: 100% 
+        }
+    }
+
+    @keyframes blink {
+        from, to { 
+            border-color: transparent 
+        }
+        50% { 
+            border-color: #00ADB5; 
+        }
+    }
 </style>
     <div style ="padding: 32px 72px">
-        <h3 style="text-align: center; margin-top: 10px; margin-bottom: 30px;">Panduan Penggunaan Layanan Isolasi Mandiri COVID-19</h3>
-        
-        <iframe style="margin-left: auto; margin-right: auto; display: block; margin-bottom: 50px;" width="640" height="360" src="https://www.youtube.com/embed/fgbzAupJajU?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <h3 style="text-align: center;  margin-bottom: 10px;">Panduan Penggunaan Layanan Isolasi Mandiri COVID-19</h3>
+        <div class="typewriter">
+            <div class="typewriter-text">Alur dalam penggunaan layanan isolasi mandiri ini diawasi oleh Kementerian Kesehatan Republik Indonesia</div>
+        </div>
+        <iframe style="margin-left: auto; margin-right: auto; margin-top: 40px; display: block; margin-bottom: 50px; border-radius: 20px;" width="640" height="360"  src="https://www.youtube.com/embed/fgbzAupJajU?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="">
             <div class="container">
               
@@ -200,12 +234,12 @@ Infid
             
             <input style="border-radius: 5px; margin-right: 5px;" type="text" name="message" placeholder=" Nama Ibu Kandung" required>
             
-            <button style="border-radius: 5px; background-color: #00ADB5;">Submit</button>
+            <button style="border-radius: 5px; background-color: #00ADB5; color: #fff;">Submit</button>
             <p></p>
             </fieldset>
             </form>
 
-            <h4 style="margin-top: 40px; margin-bottom: 20px; text-align: center;">Daftar Masyarakat Pungguna Layanan Isolasi Mandiri COVID-19</h4>
+            <h4 style="margin-top: 40px; margin-bottom: 20px; text-align: center;">Daftar Masyarakat Pengguna Layanan Isolasi Mandiri COVID-19</h4>
             <table style="width:97%; text-align: center;" class="center post-wrapper" >
                 <tr>
                   <th>Nama Lengkap</th>
@@ -232,7 +266,19 @@ Infid
               <p class="text-center">
                 <button style="margin-top: 20px;" class="btn btn-dark" id="loadmoreBtn">Load More</button>
             </p>
-            
+            <h4 style="text-align: center; margin-top: 50px; margin-bottom: 20px;">Konsultasi Daring</h4>
+            <img style="width: 10%; height: auto; margin-right: 20px; margin-left: 250px;" src="{% static 'layananisolasi/halodoc-logo.png' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/klikdokter.jpeg' %}">
+            <img style="width: 5%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/gooddoctor.jpeg' %}">
+            <img style="width: 5%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/yesdok.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/sehatq.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/grabhealth.jpeg' %}"><br><br>
+            <img style="width: 10%; height: auto; margin-right: 20px; margin-left: 225px;" src="{% static 'layananisolasi/alodokter.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/klinikgo.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/milvik.jpeg' %}">
+            <img style="width: 5%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/getwell.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/trustmedis.png' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'layananisolasi/prosehat.jpeg' %}"><br><br>
         </div>
         {% endif %}
     </div>
