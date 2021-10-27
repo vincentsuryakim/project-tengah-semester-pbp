@@ -1,0 +1,212 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+Infid
+{% endblock title %}
+
+{% block content %}
+    <link href="{% static 'css/timpakar.css' %}" rel="stylesheet" type="text/css">
+
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            width: 65%;
+            border-radius: 20px;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+        height: 100px;
+        width: 100px;
+        background-size: 100%, 100%;
+        background-image: none;
+        }
+    
+        .carousel-control-prev-icon { 
+            background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23222831' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"); 
+            width: 30px;
+            height: 48px;
+            
+        }
+        .carousel-control-next-icon { 
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23222831' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+            width: 30px;
+            height: 48px;
+        }
+        
+
+        .text-justify {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+    </style>
+ 
+    <!--carousel-->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'TimPakar/dokterdokter.jpeg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+            
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'TimPakar/pakar.jpeg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'TimPakar/suntikan.jpeg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+
+    <!--Setelah Carousel-->
+    <div style ="padding: 32px 72px">
+        <h1 style="font-family: poppins ; font-weight: 700; font-size: 45px;">Tim Pakar COVID-19 Indonesia</h1>
+
+        <blockquote class="blockquote">
+            <p class="mb-0" style="font-family: poppins; font-size: medium;">"Wherever the art of Medicine is loved, there is also a love of Humanity.”</p>
+            <p> </p>
+            <footer class="blockquote-footer" style="font-family: poppins; font-size: small;"><cite title="Source Title">Hippocrates</cite></footer>
+          </blockquote>
+        <hr>
+
+        <p class="text-justify" style="font-family: poppins;">Tim Pakar Covid-19 Indonesia bertugas dan berkewajiban untuk lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h3  style="font-family: poppins; font-weight: 600; ">Daftar Tim Pakar Covid-19 Indonesia</h3>
+        <table class="table post-wrapper">
+            <thead>
+            <tr>
+                <th scope="col">Nama</th>
+                <th scope="col">Tempat Bertugas</th>
+                <th scope="col">Asal Universitas</th>
+                <th scope="col">Deskripsi Diri</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <th scope="row"> Prof. Drh. Wiku Adisasmito, M.Sc., Ph.D.  </th>
+                <td> Sekretaris MWA UI dan Guru Besar FKM UI </td>
+                <td> Universitas Indonesia </td>
+                <td class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+            </tr>
+            <tr >
+                <th scope="row"> Prof. Dr. dr. Akmal Taher, Sp.U(K)  </th>
+                <td> Ketua Tim Uji Klinik Alat Kesehatan, Direktorat Jenderal Farmasi, Kementerian Kesehatan </td>
+                <td> Universitas Indonesia </td>
+                <td class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+            </tr>
+            <!-- TODO loop from notes model -->
+            {% for r in register %}
+            <tr class="post-box">
+                <th scope="row"> {{r.nama}} </th>
+                <td> {{r.tempatBertugas}} </td>
+                <td> {{r.asalUniversitas}} </td>
+                <td class="text-justify"> {{r.pesan}} </td>
+                
+            </tr>
+            {% endfor %}
+        
+        <br>
+        </tbody>
+            
+        </table>
+
+        <p class="text-center">
+            <button class="btn btn-primary" id="loadmoreBtn" style="font-family: poppins;">Load More</button>
+        </p>
+
+        <br>
+
+       
+
+        <hr>
+
+        {% if user.is_authenticated and user.is_superuser %}
+        <div class="card text-center ">
+            <div class="card-body bg-light shadow-lg">
+              <h3 class="card-title" style="font-family: poppins; font-weight: 700;">Anda Tim Pakar Tapi Tidak Ada Nama Anda Di Daftar?</h3>
+              <p style="font-family: poppins">Tambahkan Nama Anda Secara Otomatis di Sini</p>
+              <a class="btn btn-primary" href="{% url 'daftar-timPakar' %}" role="button" style="font-family: poppins;">Daftar</a>  
+            </div>
+        
+        </div>
+        {% endif %}
+           
+    </div>
+      
+    <!-- END SECTION -->
+    {% endblock content %}
+
+    {% block js %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+    <script>
+        $(document).ready(function(){
+            $("#loadmoreBtn").on('click',function(){
+               
+                var _currentResult=$(".post-box").length;
+                // Run Ajax
+                $.ajax({
+                    url:"{% url 'load-more' %}",
+                    type:'post',
+                    data:{
+                        'offset':_currentResult,
+                        'csrfmiddlewaretoken':"{{csrf_token}}"
+                    },
+                    dataType:'json',
+                    beforeSend:function(){
+                        $("#loadmoreBtn").addClass('disabled').text('Loading..');
+                    },
+                    success:function(res){
+                        var _html='';
+                        var json_data=$.parseJSON(res.posts);
+                        $.each(json_data,function(index,data){
+                            _html+=`<tr class="post-box">\
+                <th scope="row"> ${data.fields.nama} </th>\
+                <td> ${data.fields.tempatBertugas} </td>\
+                <td> ${data.fields.asalUniversitas} </td>\
+                <td> ${data.fields.pesan} </td>\
+            </tr>`;
+                        });
+                        $(".post-wrapper").append(_html);
+                        var _countTotal=$(".post-box").length;
+                        if(_countTotal==res.totalResult){
+                            $("#loadmoreBtn").remove();
+                        }else{
+                            $("#loadmoreBtn").removeClass('disabled').text('Load More');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    {% endblock js %}
+
+<!--
+    Sumber:
+    1. https://github.com/codeartisanlab/django-3-crud-application
+-->

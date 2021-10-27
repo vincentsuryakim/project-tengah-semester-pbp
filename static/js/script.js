@@ -35,7 +35,6 @@ $(document).ready(function() {
     }
 
     $("#modal_confirm_password_signup").on('input', function() {
-        console.log("masuk")
         if (this.value === document.getElementById('modal_password_signup').value) {
             document.getElementById('signup-submit-button').disabled = false
         } else {
