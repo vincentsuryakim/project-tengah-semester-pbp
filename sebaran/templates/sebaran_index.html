@@ -7,44 +7,8 @@ Infid
 
 {% block head %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-
-    <style>
-        .box-font-title {
-            font-size: 2.5rem;
-            margin-left: 1ch;
-            margin-bottom: 0;
-        }
-        .box-font-content {
-            font-size: 3.5rem;
-            margin-right: 1ch;
-            margin-bottom: 0;
-        }
-        .button-edit {
-            margin-right: 1ch;
-        }
-        .button-hapus {
-            margin-left: 1ch;
-        }
-        @media (max-width: 992px) {
-            .box-font-title {
-                font-size: 1.5rem;
-                margin-left: 0;
-            }
-            .box-font-content {
-                font-size: 2rem;
-                margin-right: 0;
-            }
-            .button-edit {
-                margin-right: 0ch;
-                margin-top: 0.5rem;
-                margin-bottom: 0.25rem;
-            }
-            .button-hapus {
-                margin-left: 0ch;
-                margin-top: 0.25rem;
-            }
-        }
-    </style>
+    
+    <link rel="stylesheet" href="{% static 'css/sebaran/style.css' %}">
 {% endblock head %}
 
 {% block content %}

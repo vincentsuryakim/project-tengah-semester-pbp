@@ -14,28 +14,7 @@
 
         {% block head %} {% endblock head %}
     
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-            .li-cust {
-                width: 12ch;
-                font-size: 0.9rem;
-            }
-            .authenticated_cust {
-                margin: 0px 1rem 0px 0px;
-                font-weight: 700;
-            }
-            @media (max-width: 992px){
-                .li-cust {
-                    min-width: 100%;
-                    font-size: 1rem;
-                }
-                .authenticated_cust {
-                    margin: 0px;
-                    font-size: 1.5rem;
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     
     <body>
