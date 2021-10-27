@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+    Siranap
+{% endblock title %}
+
+
+{% block content %}
+<div class="container-fluid" style="background-color: #dfdfdf;">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-7">    
+            <h2 style="margin-top: 20px;">Daftar Rumah Sakit</h2>
+            <p>Silahkan mencari sesuai dengan nama ataupun tempat rumah sakit.</p> 
+        </div>
+        {% if user.is_authenticated and user.is_superuser %}
+        <div class="col-sm-3">
+            <a href="book/" class="btn btn-primary btn-sm active mt-3" role="button" aria-pressed="true" style="margin-bottom: 20px; ">Booking Info</a>
+            <a href="add_rs/" class="btn btn-primary btn-sm active mt-3" role="button" aria-pressed="true" style="margin-bottom: 20px; ">Add RS</a>
+        </div>
+        {% endif %}
+    </div> 
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 mb-3">
+            <input type="search" placeholder="Search...." name="search" class="searchbox-input" onkeyup="cari();" style="height: 100%; width: 25%;">
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    {% for rumahsakit in rs %}
+        <div class="row" id="myItems">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <h5 class="card-title">{{rumahsakit.nama}}</h5>
+                                <p class="card-text">{{rumahsakit.alamat}}</p>
+                                <p class="card-text">{{rumahsakit.tempat}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 text-end" style="padding-right: 30px; padding-top: 15px;">
+                            Tersedia<br>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <a class="btn btn-primary" href="user_book/" role="button" target="_blank">Book</a>
+                            </div>
+                            <div class="col-sm-4 text-end" style="padding-right:5px;">
+                                No telfon: {{rumahsakit.no_telfon}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <br>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script src="{% static 'js/scripts_rs.js' %}"></script>
+{% endblock script %}
+    
