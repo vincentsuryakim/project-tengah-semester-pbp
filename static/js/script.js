@@ -21,11 +21,21 @@ function getCookie(cname) {
 
 // JQuery Scripts
 $(document).ready(function() {
-    document.getElementById('login-next-url').value = window.location.pathname;
-    document.getElementById('signup-next-url').value = window.location.pathname;
-    document.getElementById('logout-anchor').href = "/logout/?next="+window.location.pathname;
+    var login_next_input = document.getElementById('login-next-url')
+    if (!!login_next_input) {
+        login_next_input.value = window.location.pathname;
+    }
+    var signup_next_input = document.getElementById('signup-next-url')
+    if (!!signup_next_input) {
+        signup_next_input.value = window.location.pathname;
+    }
+    var logout_button = document.getElementById('logout-anchor')
+    if (!!logout_button) {
+        logout_button.href = "/logout/?next="+window.location.pathname;
+    }
 
     $("#modal_confirm_password_signup").on('input', function() {
+        console.log("masuk")
         if (this.value === document.getElementById('modal_password_signup').value) {
             document.getElementById('signup-submit-button').disabled = false
         } else {
