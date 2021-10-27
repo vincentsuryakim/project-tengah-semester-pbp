@@ -23,11 +23,7 @@ def index(request):
     form = SebaranForm(request.POST or None)
 
     if (form.is_valid() and request.method == "POST" and request.user.is_superuser):
-        provinsi = form.data['provinsi']
-
-        # Validasi apakah sudah ada data dengan nama provinsi yang sama pada model Sebaran
-        if (Sebaran.objects.filter(provinsi__iexact=provinsi).count() == 0):
-            form.save()
+        form.save()
         return HttpResponseRedirect("/sebaran")
 
     if request.user.is_authenticated:

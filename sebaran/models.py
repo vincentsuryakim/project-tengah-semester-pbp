@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Sebaran(models.Model):
-    provinsi = models.CharField(max_length=64)
+    provinsi = models.CharField(max_length=64, unique=True)
     jumlah_kasus_terkonfirmasi = models.IntegerField()
     jumlah_kasus_aktif = models.IntegerField()
     jumlah_sembuh = models.IntegerField()
