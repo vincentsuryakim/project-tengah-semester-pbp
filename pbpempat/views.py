@@ -11,7 +11,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('/')
+            return redirect(request.POST.get("next"))
         else:
             response = HttpResponse('Invalid Login')
             response.status_code = 401
@@ -36,8 +36,9 @@ def register(request):
         user.first_name = first_name
         user.last_name = last_name
         user.save()
+        return redirect(request.POST.get("next"))
     return redirect('/')
 
 def logout(request):
     auth_logout(request)
-    return redirect('/')
+    return redirect(request.GET.get("next"))
