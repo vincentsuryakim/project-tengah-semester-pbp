@@ -28,4 +28,15 @@ $(document).ready(function() {
             document.getElementById('signup-submit-button').disabled = true
         }
     });
+    
+    $(window).scroll(function() {
+        var topPosition = $(window).scrollTop();
+        var windowHeight = $(window).height();
+
+        if(topPosition > windowHeight/2) {
+            $("#scroll-to-top").css("display", "block");
+        } else {
+            $("#scroll-to-top").css("display", "none");
+        }
+    });
 })
