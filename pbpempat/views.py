@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.db import IntegrityError
 
 def login(request):
     if (request.method == "POST"):
@@ -25,7 +26,12 @@ def register(request):
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
 
-        user = User.objects.create_user(username, email, password)
+        try:
+            user = User.objects.create_user(username, email, password)
+        except IntegrityError as e:
+            response = HttpResponse('Username already exists')
+            response.status_code = 409
+            return response
 
         user.first_name = first_name
         user.last_name = last_name
