@@ -68,7 +68,7 @@ def edit_user(request):
         provinsi = request.POST.get("provinsi")
 
         # Validasi apakah sudah ada data provinsi seorang user pada model SebaranUser
-        if (not SebaranUser.objects.filter(user_id=request.user.id).exists()):
+        if (SebaranUser.objects.filter(user_id=request.user.id).count() == 0):
             try:
                 sebaran_user = SebaranUser(user_id=User.objects.get(id=request.user.id), provinsi=Sebaran.objects.get(provinsi=provinsi))
                 sebaran_user.save()
