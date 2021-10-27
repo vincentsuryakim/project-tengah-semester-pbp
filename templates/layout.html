@@ -21,9 +21,9 @@
         {% include 'navbar.html' %}
 
         {% block content %}
-            {% block js %}{% endblock js %}
         {% endblock content %}
-
+        
+        {% block js %}{% endblock js %}
         <div class="position-fixed d-flex flex-column align-items-end" style="bottom: 1.25rem; right: 1.25rem;">
             <button type="button" class="btn btn-secondary" id="scroll-to-top" onclick="scrollToTop()" style="width: 2.5rem; height: 2.5rem; display: none;">↑</button>
             {% if user.is_authenticated %}
