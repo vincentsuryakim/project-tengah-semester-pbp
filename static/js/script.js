@@ -21,6 +21,10 @@ function getCookie(cname) {
 
 // JQuery Scripts
 $(document).ready(function() {
+    document.getElementById('login-next-url').value = window.location.pathname;
+    document.getElementById('signup-next-url').value = window.location.pathname;
+    document.getElementById('logout-anchor').href = "/logout/?next="+window.location.pathname;
+
     $("#modal_confirm_password_signup").on('input', function() {
         if (this.value === document.getElementById('modal_password_signup').value) {
             document.getElementById('signup-submit-button').disabled = false
