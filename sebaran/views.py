@@ -39,7 +39,7 @@ def index(request):
 
 # Mengubah data suatu provinsi pada model Sebaran
 def edit_sebaran(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_superuser):
 
         # Get data from request body
         id = request.POST.get("id")
@@ -64,7 +64,7 @@ def edit_sebaran(request):
 
 # Menambahkan provinsi anda ke model SebaranUser
 def edit_user(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_authenticated):
         provinsi = request.POST.get("provinsi")
 
         # Validasi apakah sudah ada data provinsi seorang user pada model SebaranUser
@@ -81,7 +81,7 @@ def edit_user(request):
 
 # Mengubah provinsi anda saat ini pada model SebaranUser
 def edit_existing_user(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_authenticated):
         provinsi = request.POST.get("provinsi")
 
         try:
@@ -97,7 +97,7 @@ def edit_existing_user(request):
 
 # Menghapus provinsi anda saat ini pada model SebaranUser
 def delete_user(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_authenticated):
         try:
             sebaran_user = SebaranUser.objects.get(user_id=request.user.id)
             sebaran_user.delete()
