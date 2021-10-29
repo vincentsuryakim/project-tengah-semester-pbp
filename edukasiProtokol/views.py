@@ -1,21 +1,29 @@
 from django.shortcuts import render
 from edukasiProtokol.forms import FormArtikel
 from .models import Artikel
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 def index(request):
-    data_artikel = Artikel.objects.all()
-    response = {'data_artikel':data_artikel}
-    return render(request, 'edukasi_protokol.html', response)
+    if 'q' in request.GET:
+        q=request.GET['q']
+        posts=Artikel.objects.filter(title__icontains=q)
+    else:
+        posts=Artikel.objects.all()
+    # Pagintion
+    paginator=Paginator(posts,6)
+    page_number=request.GET.get('page')
+    posts_obj=paginator.get_page(page_number)
+    return render(request,'edukasi_protokol.html', {'data_artikel':posts_obj})
 
 def buat_artikel(request):
     if request.method == 'POST':
         form = FormArtikel(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('../')
+            return HttpResponseRedirect('/edukasiProtokol/')
     else:
         form = FormArtikel()
     return render(request, 'artikel_form.html', {'form': form})
@@ -26,5 +34,15 @@ def artikel_edukasi(request, id):
     response = {'contents':contents}
     return render(request, 'artikel_view.html', response)
 
-
+def next_artikel(request):
+    offset=int(request.POST['offset'])
+    limit= 6
+    posts=Artikel.objects.all()[offset:limit+offset]
+    totalData=Artikel.objects.count()
+    data={}
+    posts_json=serializers.serialize('json',posts)
+    return JsonResponse(data={
+        'posts':posts_json,
+        'totalResult':totalData
+    })
 

@@ -11,9 +11,44 @@
   box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
-.card-img-top{
-  margin-top: 12px;
+.container{
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.art-image{
   object-fit: cover;
-  height: 200px !important;
-  overflow: hidden !important;
+}
+
+.artikel-fields{
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.artikel-fields-two{
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.artikel-konten{
+  display:grid ; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; row-gap: 0px;
+}
+@media only screen and (max-width: 1024px) {
+  .artikel-konten{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .artikel-konten{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }

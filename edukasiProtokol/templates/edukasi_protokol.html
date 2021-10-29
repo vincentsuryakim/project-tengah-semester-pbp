@@ -7,75 +7,245 @@ Infid
 {% endblock title %}
 
 {% block content %}
-    <!-- <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-    /> -->
-    <link href="{% static 'artikel_card.css' %}" rel="stylesheet" type="text/css">
-    <!-- <img src="https://cdn.discordapp.com/attachments/897194638568480799/902224302101905498/covid.jpg.jpg" alt="COVID" width="100%" height="300">-->
-    
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="{% static 'artikel_card.css' %}" rel="stylesheet" type="text/css">
+
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://cdn.discordapp.com/attachments/791186052671995917/902570522154508338/de-an-sun_-_o0A00pF8P0-unsplash.jpg" class="d-block w-100" alt="fotosatu">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>BE SAFE</h5>
+        <p>from corona virus infection</p>
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://cdn.discordapp.com/attachments/886886833827479582/902541081026113536/pexels-cottonbro-3951862_1.jpg" class="d-block w-100" alt="fotosatu">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://cdn.discordapp.com/attachments/886886833827479582/902541060436295700/pexels-cottonbro-3952234_1.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://cdn.discordapp.com/attachments/886886833827479582/902541046091771934/pexels-miguel-a-padrinan-3936421_1.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
-    
-    <div style="padding: 32px 100px">
-        <h1 style="font-family: poppins ; font-weight: 700; font-size: 45px;">Edukasi Protokol COVID-19</h1>
-        <hr>
-        <h2 style="font-family: poppins ; font-weight: 350; font-size: 25px;">YA ALLAH PUSING</h1>
-        <div style="padding: 24px 56px">
-          <div class = "row">
-            {% for data in data_artikel %}
-            <div class="card" style="width: 300px; border-radius: 4px; margin: 12px;">
-                <img class="card-img-top" src="{{ data.image_link }} "alt="image article" >
-                <div class="card-body">
-                  <h5 class="card-title">{{ data.judul }}</h5>
-                  <div class="text">
-                    {{ data.deskripsi|slice:"0:100" }}...
-                  </div>
-                  <br>
-                   <!-- <i class="fas fa-user"></i> -->
+    <div class="carousel-item">
+      <img src="https://cdn.discordapp.com/attachments/791186052671995917/902573117686284318/annie-spratt-E3NGEqI6Yfw-unsplash_1.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>BE SMART</h5>
+        <p>and inform yourself about it</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://cdn.discordapp.com/attachments/791186052671995917/902560747941404763/pexels-cottonbro-3951628_1.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>BE KIND</h5>
+        <p>and support one another</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- CARD ARTIKEL -->
+<div>
+  <div style="padding: 32px 100px">
+      <h1 style="font-family: poppins ; font-weight: 700; font-size: 45px;">Edukasi Protokol COVID-19</h1>
+      <h3 style="font-family: poppins; font-size: large;">Artikel edukasi di masa pandemi untuk mencegah dan mengurangi resiko menular COVID-19.</h3>
+      <hr>
+  </div>
+
+  <section class="px-3 py-4">
+    <div class="d-flex justify-content-center">
+      <div class ="artikel-konten post-wrapper">
+          {% for data in data_artikel %}
+          <div class="mb-5 post-box">
+            <div class="card position-relative" style="height: 532px; width: 300px;">
+              <img class="card-img-top" src="{{ data.image_link }} " widht="600" height="200" style="object-fit: cover;" alt="image article" >
+              <div class="card-body">
+                <h5 class="card-title">{{ data.judul }}</h5>
+                <div class="text">
+                  {{ data.deskripsi|slice:"0:50" }}...
+                </div>
+                <br>
+                <div style="position: absolute; bottom: 18px;">
                   <p class="card-text"> {{data.publisher}} </p>
-                  <p class="card-text"> {{ data.tanggal_publish }}</p> 
-                  <a style="background-color: #00ADB5!important; border-color: #00ADB5; border-radius: 4px;" href={{data.artikel_link}} class="btn btn-primary">Read More</a>
+                <p class="card-text"> {{ data.tanggal_publish }}</p> 
+                <a style="background-color: #00ADB5!important; border-color: #00ADB5; border-radius: 4px;" href= {{data.artikel_link}} class="btn btn-primary">Read More</a>
                 </div>
               </div>
             </div>
-            {% endfor %}
-        </div>
+          </div>
+          {% endfor %}
+      </div>
     </div>
+  </section>
+  <p class="text-center">
+    <button class="btn btn-dark" id="loadmoreBtn">Load More</button>
+  </p>
+  <br>
+</div>
+
+<!-- CAROUSEL 2-->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://cdn.discordapp.com/attachments/791186052671995917/903013490917269545/Group_4.png" class="d-block w-100" alt="fotosatu">
+      <div class="carousel-caption d-none d-md-block">
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://cdn.discordapp.com/attachments/791186052671995917/903017456275161139/Group_5_2.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- ACCORDION -->
+<h3 style="font-family: poppins ; font-weight: 800; font-size: 32px; padding: 36px 200px 0px"> Gejala </h3>
+<h3 style="font-family: poppins ; font-weight: 350; font-size: 14px; padding: 4px 200px 8px"> Masing-masing orang memiliki respons yang berbeda terhadap COVID-19. Sebagian besar orang yang terpapar virus ini akan mengalami gejala ringan hingga sedang, dan akan pulih tanpa perlu dirawat di rumah sakit. </h3>
+<div class="accordion accordion-flush" id="accordionFlushExample" style="padding: 0px 200px ;">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Gejala yang paling umum
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body"><ul>
+          <li>Demam</li>
+          <li>Batuk</li>
+          <li>Kelelahan</li>
+          <li>kehilangan rasa atau bau</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Gejala yang sedikit tidak umum
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body"><ul>
+          <li>Sakit tenggorokan</li>
+          <li>Sakit kepala</li>
+          <li>Sakit dan nyeri</li>
+          <li>Diare</li>
+          <li>Ruam pada kulit, atau perubahan warna pada jari tangan atau jari kaki</li>
+          <li>Mata merah atau iritasi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        Gejala serius
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body"><ul>
+          <li>Kesulitan bernapas atau sesak napas</li>
+          <li>Kesulitan berbicara atau bergerak, atau bingung</li>
+          <li>Nyeri dada</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="alert alert-danger" style="padding: 8px 200px 8px">
+  <strong>Segera cari bantuan medis jika Anda mengalami gejala serius. Selalu hubungi dokter atau fasilitas kesehatan sebelum mengunjunginya.</strong>
+</div>
+
+<!-- HARUS LOGIN -->
+{% if user.is_authenticated and user.is_superuser %}
+<br>
+  <div class="image art-image" style="background-image: url(https://cdn.discordapp.com/attachments/791186052671995917/902889963459321896/pexels-laura-james-6098047_3_1.png); background-size: cover; min-height: 500px; ">
+    <div class = "artikel-fields">
+      <h1 class="display-4" style="font-family: poppins; color: white;">Hello, {{ user.username }}!</h1>
+      <p class="lead" style="font-family: poppins; color: white;">Anda dapat menambahkankan artikel terkait edukasi protokol COVID-19 di sini!</p>
+      <p style="font-family: poppins; color: white;">Bagikan kebaikan, bagikan informasi kepada sesama</p>
+      <p class="lead">
+        <a class="btn btn-primary btn" href="{% url 'buat_artikel' %}" role="button"  style="font-family: poppins; background-color: #00ADB5; border-color: #00ADB5;">Buat Artikel</a>
+      </p>
+    </div>
+  </div>
+{% endif %}
+
 {% endblock content %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+<script>
+    $(document).ready(function(){
+        $("#loadmoreBtn").on('click',function(){
+            var _currentResult=$(".post-box").length;
+            // Run Ajax
+            $.ajax({
+                url:"{% url 'next_artikel' %}",
+                type:'post',
+                data:{
+                    'offset':_currentResult,
+                    'csrfmiddlewaretoken':"{{csrf_token}}"
+                },
+                dataType:'json',
+                beforeSend:function(){
+                    $("#loadmoreBtn").addClass('disabled').text('Loading..');
+                },
+                success:function(res){
+                    var _html='';
+                    var json_data=$.parseJSON(res.posts);
+                    var length_str = 80;
+                    $.each(json_data,function(index,data){
+                      var desc_trim = data.fields.deskripsi.slice(0,50);
+                        _html+=`<div class="mb-5 post-box">
+                    <div class="card position-relative" style="height: 532px; width: 300px;">
+                      <img class="card-img-top" src="${ data.fields.image_link } " widht="600" height="200" style="object-fit: cover;" alt="image article" >
+                      <div class="card-body">
+                        <h5 class="card-title">${ data.fields.judul }</h5>
+                        <div class="text">
+                          ${ desc_trim }...
+                        </div>
+                        <br>
+                        <div style="position: absolute; bottom: 18px;">
+                          <p class="card-text"> ${data.fields.publisher} </p>
+                        <p class="card-text"> ${ data.fields.tanggal_publish }</p> 
+                        <a style="background-color: #00ADB5!important; border-color: #00ADB5; border-radius: 4px;" href=${data.fields.artikel_link} class="btn btn-primary">Read More</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`; 
+                    });
+                    $(".post-wrapper").append(_html);
+                    var _countTotal=$(".post-box").length;
+                    if(_countTotal==res.totalResult){
+                        $("#loadmoreBtn").remove();
+                    }else{
+                        $("#loadmoreBtn").removeClass('disabled').text('Load More');
+                    }
+                }
+            });
+        });
+    });
+</script>  
+
+{% endblock js %}
