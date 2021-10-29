@@ -6,6 +6,21 @@
     Booking RS
 {% endblock title %}
     
+
+{% block head %}
+    <style>
+        body {
+            min-height: 100%;
+        }
+        .footer {
+            position: absolute;
+            bottom:0;
+            left:0;
+            width: 100%;
+        }
+    </style>
+{% endblock head %}
+    
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container" style="width: 25%; margin-top: 7%;">
