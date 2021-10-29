@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+    Booking RS
+{% endblock title %}
+    
+
+{% block head %}
+    <style>
+        body {
+            min-height: 100%;
+        }
+        .footer {
+            position: absolute;
+            bottom:0;
+            left:0;
+            width: 100%;
+        }
+    </style>
+{% endblock head %}
+    
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container" style="width: 25%; margin-top: 7%;">
+    <h4 style="margin: auto; margin-bottom: 20px;">Form Booking</h4>
+    <form action="" id="form" method="POST" style="max-width: 350px;">
+        {% csrf_token %} 
+        {% for form in forms %}
+            <div class="form-group">
+                {{form.label}}
+                <br>
+                <div style="width: 300px;">
+                    {{form}}
+                </div>
+                <br>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+    </form>
+</div>
+
+{% else %}
+<div class="container text-center" style="margin-top : 8%;">
+    <div class="jumbotron">
+        <h1 class="display-4">Hi</h1>
+        <p class="lead">Untuk melanjutkan booking rumah sakit, silahkan login terlebih dahulu ya!</p>
+        <hr class="my-4">
+        <p></p>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+
+
+{% block js %}
+<script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", submitHandler);
+
+    function submitHandler(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'user_book' %}",
+            data: $("#form").serialize(),
+            dataType: "json",
+            success: function(data){
+                if (data.msg === 'Success'){
+                    form.reset();
+                    alert('Form submitted');
+                }
+            }
+        })
+    }
+</script>
+{% endblock js %}

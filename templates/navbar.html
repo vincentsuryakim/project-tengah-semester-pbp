@@ -1,0 +1,117 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg text-white navbar-dark" style="background-color: #152636; font-family: Poppins;">
+    <div class="container-fluid d-flex">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/LogoInfid.png' %}" alt="Logo" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item d-flex align-self-center li-cust">
+                    <a class="nav-link text-white text-center w-100" href="#">Vaksinasi COVID-19</a>
+                </li>
+                <li class="nav-item d-flex align-self-center li-cust" style="width: 15ch;">
+                    <a class="nav-link text-white text-center w-100" href="#">Layanan Isolasi Mandiri</a>
+                </li>
+                <li class="nav-item d-flex align-self-center li-cust" style="width: 15ch;">
+                    <a class="nav-link text-white text-center w-100" href="/rsrujukan">Rumah Sakit Rujukan</a>
+                </li>
+                <li class="nav-item d-flex align-self-center li-cust">
+                    <a class="nav-link text-white text-center w-100" href="/timPakarCovid">Tim Pakar COVID-19</a>
+                </li>
+                <li class="nav-item d-flex align-self-center li-cust">
+                    <a class="nav-link text-white text-center w-100" href="#">Kontak Layanan</a>
+                </li>
+                <li class="nav-item d-flex align-self-center li-cust">
+                    <a class="nav-link text-white text-center w-100" href="/sebaran">Persebaran Data</a>
+                </li>
+                <li class="nav-item d-flex align-self-center li-cust">
+                    <a class="nav-link text-white text-center w-100" href="#">Edukasi Protokol</a>
+                </li>
+                <li class="nav-item d-flex align-self-center li-cust">
+                    <a class="nav-link text-white text-center w-100" href="#">Beranda</a>
+                </li>
+            </ul>
+            {% if not user.is_authenticated %}
+                <form class="d-flex justify-content-center">
+                    <button type="button" class="mr-3 btn btn-link text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                    <button type="button" class="btn btn-outline-success ml-3 text-dark px-3" style="background-color: #00ADB5;" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
+                </form>
+            {% else %}
+                <p class="text-center authenticated_cust">Hi, {{ user.first_name }}!</p>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="modal fade" id="signUpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Sign Up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/register/">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        {% csrf_token %}
+                        <input type="hidden" id="signup-next-url" name="next" value="/">
+
+                        <label for="exampleFormControlInput1" class="form-label">Username</label>
+                        <input type="text" class="form-control username" id="modal_username_signup" name="username" value="" placeholder="Username" required>
+
+                        <label for="exampleFormControlInput1" class="form-label mt-3">Email</label>
+                        <input type="text" class="form-control username" id="modal_email_signup" name="email" value="" placeholder="Email" required>
+
+                        <label for="exampleFormControlInput1" class="form-label mt-3">Password</label>
+                        <input type="password" class="form-control password" id="modal_password_signup" name="password" value="" placeholder="Password" required>
+
+                        <label for="exampleFormControlInput1" class="form-label mt-3">Confirm Password</label>
+                        <input type="password" class="form-control password" id="modal_confirm_password_signup" name="confirmpassword" value="" placeholder="Confirm Password" required>
+
+                        <label for="exampleFormControlInput1" class="form-label mt-3">First Name</label>
+                        <input type="text" class="form-control first_name" id="modal_first_name_signup" name="first_name" value="" placeholder="First Name" required>
+
+                        <label for="exampleFormControlInput1" class="form-label mt-3">Last Name</label>
+                        <input type="text" class="form-control last_name" id="modal_last_name_signup" name="last_name" value="" placeholder="Last Name" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Sign Up" class="signup-submit-button btn btn-primary" id="signup-submit-button" disabled />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/login/">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        {% csrf_token %}
+                        <input type="hidden" id="login-next-url" name="next" value="/">
+
+                        <label for="exampleFormControlInput1" class="form-label">Username</label>
+                        <input type="text" class="form-control username" id="modal_username" name="username" value="" placeholder="Username" required>
+
+                        <label for="exampleFormControlInput1" class="form-label mt-3">Password</label>
+                        <input type="password" class="form-control password" id="modal_password" name="password" value="" placeholder="Password" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Login" class="login-submit-button btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

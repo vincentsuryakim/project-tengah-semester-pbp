@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+Infid
+{% endblock title %}
+
+{% block content %}
+ 
+
+      <div style ="padding: 32px 72px">
+        <div class="card text-center ">
+            <div class="card-body bg-light shadow-lg">
+                <h2 style="font-family: poppins ; font-weight: 700; ">Pendaftaran Tim Pakar COVID-19 Indonesia</h2>
+                <form action="" method="POST">
+                    <div class="center-form">
+                        {% csrf_token %}
+        
+                        <label for="nama" style="font-family: poppins;">Nama Lengkap:</label><br>
+                        {{ form.nama }} <br>
+            
+                        <br>
+        
+                        <label for="tempatBertugas" style="font-family: poppins;">Tempat Bekerja:</label><br>
+                        {{ form.tempatBertugas }} <br>
+        
+                        <br>
+               
+                        <label for="asalUniversitas" style="font-family: poppins;">Asal Universitas:</label><br>
+                        {{ form.asalUniversitas }} <br>
+            
+                        <br>
+        
+                        <label for="pesan" style="font-family: poppins;">Deskripsi Diri:</label><br>
+                        {{ form.pesan }} <br>
+            
+                        <br>
+        
+                        <input type="submit" value="Submit" class="btn btn-primary" style=" font-family: poppins;" > 
+                        
+                        <br>
+                      </form>
+                    </div>
+                   
+            </div>
+        
+        </div>
+        
+
+      </div>
+
+
+  {%endblock content%}
