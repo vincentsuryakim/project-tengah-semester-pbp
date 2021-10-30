@@ -19,7 +19,7 @@ import Infid.urls as Infid
 import sebaran.urls as sebaran
 import TimPakar.urls as TimPakar
 import RSRujukan.urls as rsrujukan
-
+import vaksincovid.urls as vaksincovid
 from .views import login, register, logout
 
 urlpatterns = [
@@ -31,4 +31,5 @@ urlpatterns = [
     path('register/', register),
     path('logout/', logout),
     path('timPakarCovid/', include(TimPakar)),
+    path('vaksincovid/', include(vaksincovid)),
 ]
