@@ -20,6 +20,8 @@ import sebaran.urls as sebaran
 import TimPakar.urls as TimPakar
 import RSRujukan.urls as rsrujukan
 import vaksincovid.urls as vaksincovid
+import edukasiProtokol.urls as edukasiProtokol
+
 from .views import login, register, logout
 
 urlpatterns = [
@@ -32,4 +34,5 @@ urlpatterns = [
     path('logout/', logout),
     path('timPakarCovid/', include(TimPakar)),
     path('vaksincovid/', include(vaksincovid)),
+    path('edukasiProtokol/', include(edukasiProtokol)),
 ]

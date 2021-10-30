@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'TimPakar',
     'RSRujukan',
     'vaksincovid',
+    'edukasiProtokol',
 ]
 
 MIDDLEWARE = [
