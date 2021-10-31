@@ -7,7 +7,6 @@ Infid
 {% endblock title %}
 
 {% block content %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="{% static 'css/edukasiProtokol/artikel_card.css' %}" rel="stylesheet" type="text/css">
 
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -181,7 +180,7 @@ Infid
 <br>
   <div class="image art-image" style="background-image: url(https://cdn.discordapp.com/attachments/791186052671995917/902889963459321896/pexels-laura-james-6098047_3_1.png); background-size: cover; min-height: 500px; ">
     <div class = "artikel-fields">
-      <h1 class="display-4" style="font-family: poppins; color: white;">Hello, {{ user.username }}!</h1>
+      <h1 class="display-4" style="font-family: poppins; color: white;">Hello, {{ user.first_name }}!</h1>
       <p class="lead" style="font-family: poppins; color: white;">Anda dapat menambahkankan artikel terkait edukasi protokol COVID-19 di sini!</p>
       <p style="font-family: poppins; color: white;">Bagikan kebaikan, bagikan informasi kepada sesama</p>
       <p class="lead">
