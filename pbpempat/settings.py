@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'RSRujukan',
     'vaksincovid',
     'edukasiProtokol',
+    'kontak',
 ]
 
 MIDDLEWARE = [

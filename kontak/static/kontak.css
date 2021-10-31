@@ -1,0 +1,11 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto;
+    font-family: poppins;
+    padding-top: 60px;
+}
+
+.grid-item {
+    padding-bottom: 50px;
+    font-size: 18px;
+}
