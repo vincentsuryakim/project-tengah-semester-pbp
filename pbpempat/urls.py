@@ -21,6 +21,7 @@ import TimPakar.urls as TimPakar
 import RSRujukan.urls as rsrujukan
 import vaksincovid.urls as vaksincovid
 import edukasiProtokol.urls as edukasiProtokol
+import kontak.urls as kontak
 
 from .views import login, register, logout
 
@@ -35,4 +36,5 @@ urlpatterns = [
     path('timPakarCovid/', include(TimPakar)),
     path('vaksincovid/', include(vaksincovid)),
     path('edukasiProtokol/', include(edukasiProtokol)),
+    path('kontak/', include(kontak)),
 ]
