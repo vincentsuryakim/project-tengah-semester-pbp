@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+Infid
+{% endblock title %}
+
+{% block content %}
+<div style ="padding: 32px 72px">
+  <div class="card text-center ">
+      <div class="card-body bg-light shadow-lg">
+          <h2 style="font-family: poppins ; font-weight: 700; ">Buat Artikel Edukasi Protokol COVID-19</h2>
+          <form action="" method="POST">
+              <div class="center-form">
+              {% csrf_token %}
+
+              <label for="nama" style="font-family: poppins;">Judul Artikel:</label><br>
+              {{ form.judul }} <br>
+
+              <br>
+
+              <label for="tempatBertugas" style="font-family: poppins;">Image Link:</label><br>
+              {{ form.image_link }} <br>
+
+              <br>
+
+              <label for="asalUniversitas" style="font-family: poppins;">Link Artikel:</label><br>
+              {{ form.artikel_link }} <br>
+
+              <br>
+
+              <label for="pesan" style="font-family: poppins;">Publisher:</label><br>
+              {{ form.publisher }} <br>
+
+              <br>
+
+              <label for="pesan" style="font-family: poppins;">Deskripsi Singkat:</label><br>
+              {{ form.deskripsi }} <br>
+
+              <br>
+
+              <input type="submit" value="Submit" class="btn btn-primary" style=" font-family: poppins; background-color: #00ADB5!important; border-color: #00ADB5; border-radius: 4px;" > <br>
+            
+          </form>
+      </div>
+  </div>
+</div>
+{% endblock content %}

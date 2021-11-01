@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load humanize %}
+{% load comma_dot %}
 
 {% block title %}
 Infid
@@ -7,44 +9,8 @@ Infid
 
 {% block head %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-
-    <style>
-        .box-font-title {
-            font-size: 2.5rem;
-            margin-left: 1ch;
-            margin-bottom: 0;
-        }
-        .box-font-content {
-            font-size: 3.5rem;
-            margin-right: 1ch;
-            margin-bottom: 0;
-        }
-        .button-edit {
-            margin-right: 1ch;
-        }
-        .button-hapus {
-            margin-left: 1ch;
-        }
-        @media (max-width: 992px) {
-            .box-font-title {
-                font-size: 1.5rem;
-                margin-left: 0;
-            }
-            .box-font-content {
-                font-size: 2rem;
-                margin-right: 0;
-            }
-            .button-edit {
-                margin-right: 0ch;
-                margin-top: 0.5rem;
-                margin-bottom: 0.25rem;
-            }
-            .button-hapus {
-                margin-left: 0ch;
-                margin-top: 0.25rem;
-            }
-        }
-    </style>
+    
+    <link rel="stylesheet" href="{% static 'css/sebaran/style.css' %}">
 {% endblock head %}
 
 {% block content %}
@@ -59,19 +25,19 @@ Infid
     <div class="d-none d-md-block col-md-1"></div>
     <div class="col-11 mx-auto mx-md-0 col-md-5">
         <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
-            <img src="{% static 'sebaran/covid.jpeg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <img src="{% static 'images/sebaran/covid.jpeg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
             <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
                 <h4 class="box-font-title" style="font-weight: 300;">Terkonfirmasi</h4>
-                <p class="box-font-content" style="font-weight: 700;">{{ terkonfirmasi }}</p>
+                <p class="box-font-content" style="font-weight: 700;">{{ terkonfirmasi|intcomma|comma_dot }}</p>
             </div>
         </div>
     </div>
     <div class="col-11 mx-auto mx-md-0 col-md-5 mt-3 mt-md-0">
         <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
-            <img src="{% static 'sebaran/aktif.png' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <img src="{% static 'images/sebaran/aktif.png' %}" alt="aktif_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
             <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
                 <h4 class="box-font-title" style="font-weight: 300;">Kasus Aktif</h4>
-                <p class="box-font-content" style="font-weight: 700;">{{ aktif }}</p>
+                <p class="box-font-content" style="font-weight: 700;">{{ aktif|intcomma|comma_dot }}</p>
             </div>
         </div>
     </div>
@@ -80,19 +46,19 @@ Infid
     <div class="d-none d-md-block col-md-1"></div>
     <div class="col-11 mx-auto mx-md-0 col-md-5">
         <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
-            <img src="{% static 'sebaran/sembuh.png' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <img src="{% static 'images/sebaran/sembuh.png' %}" alt="sembuh_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
             <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
                 <h4 class="box-font-title" style="font-weight: 300;">Sembuh</h4>
-                <p class="box-font-content" style="font-weight: 700;">{{ sembuh }}</p>
+                <p class="box-font-content" style="font-weight: 700;">{{ sembuh|intcomma|comma_dot }}</p>
             </div>
         </div>
     </div>
     <div class="col-11 mx-auto mx-md-0 col-md-5 mt-3 mt-md-0">
         <div class="rounded" style="width: 100%; height: 8rem; position: relative; background-color: black; color: white;">
-            <img src="{% static 'sebaran/meninggal.jpg' %}" alt="terkonfirmasi_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
+            <img src="{% static 'images/sebaran/meninggal.jpg' %}" alt="meninggal_img" class="rounded" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" />
             <div style="position: absolute; width: 100%; height: 100%;" class="d-flex align-items-center flex-column flex-md-row justify-content-center justify-content-md-between">
                 <h4 class="box-font-title" style="font-weight: 300;">Meninggal</h4>
-                <p class="box-font-content" style="font-weight: 700;">{{ meninggal }}</p>
+                <p class="box-font-content" style="font-weight: 700;">{{ meninggal|intcomma|comma_dot }}</p>
             </div>
         </div>
     </div>
@@ -111,19 +77,19 @@ Infid
                     </div>
                     <div class="col-12 col-md-2">
                         <h4>Terkonfirmasi</h4>
-                        <p>{{ sebaran_user.provinsi.jumlah_kasus_terkonfirmasi }}</p>
+                        <p>{{ sebaran_user.provinsi.jumlah_kasus_terkonfirmasi|intcomma|comma_dot }}</p>
                     </div>
                     <div class="col-12 col-md-2">
                         <h4>Kasus Aktif</h4>
-                        <p>{{ sebaran_user.provinsi.jumlah_kasus_aktif }}</p>
+                        <p>{{ sebaran_user.provinsi.jumlah_kasus_aktif|intcomma|comma_dot }}</p>
                     </div>
                     <div class="col-12 col-md-2">
                         <h4>Sembuh</h4>
-                        <p>{{ sebaran_user.provinsi.jumlah_sembuh }}</p>
+                        <p>{{ sebaran_user.provinsi.jumlah_sembuh|intcomma|comma_dot }}</p>
                     </div>
                     <div class="col-12 col-md-2">
                         <h4>Meninggal</h4>
-                        <p>{{ sebaran_user.provinsi.jumlah_meninggal }}</p>
+                        <p>{{ sebaran_user.provinsi.jumlah_meninggal|intcomma|comma_dot }}</p>
                     </div>
                 </div>
                 <div class="w-100 d-flex align-items-center align-items-md-start justify-content-md-center mt-md-3 flex-column flex-md-row">
@@ -238,10 +204,10 @@ Infid
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ s.provinsi }}</td>
-                        <td>{{ s.jumlah_kasus_terkonfirmasi }}</td>
-                        <td>{{ s.jumlah_kasus_aktif }}</td>
-                        <td>{{ s.jumlah_sembuh }}</td>
-                        <td>{{ s.jumlah_meninggal }}</td>
+                        <td>{{ s.jumlah_kasus_terkonfirmasi|intcomma|comma_dot }}</td>
+                        <td>{{ s.jumlah_kasus_aktif|intcomma|comma_dot }}</td>
+                        <td>{{ s.jumlah_sembuh|intcomma|comma_dot }}</td>
+                        <td>{{ s.jumlah_meninggal|intcomma|comma_dot }}</td>
                         {% if user.is_authenticated and user.is_superuser %}
                             <td>
                                 <!-- Button trigger editModal -->
@@ -359,196 +325,21 @@ Infid
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- AJAX Related Scripts -->
-{% if user.is_authenticated %}
-<script>
-    var sebaranUserModal = document.getElementById('editSebaranUserModal')
-    sebaranUserModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget
-        // Extract info from data-* attributes
-        var provinsi = button.getAttribute('data-provinsi')
+{% block js %}
+
+    <!-- AJAX Related Scripts -->
+    {% if user.is_authenticated %}
+        <script src="{% static 'js/sebaran/user_authenticated.js' %}" ></script>
+    {% endif %}
+
+    <!-- AJAX Related Scripts for Superusers -->
+    {% if user.is_authenticated and user.is_superuser %}
+        <script src="{% static 'js/sebaran/superuser_authenticated.js' %}"></script>
+    {% endif %}
         
-        // Get the modal's content.
-        var modalBodyProvinsi = sebaranUserModal.querySelector('.modal-body .provinsi')
+    <!-- Chart Script -->
+    <script src="{% static 'js/sebaran/script.js' %}" data-sebaran-values="{{ sebaran_values|safe }}"></script>
 
-        modalBodyProvinsi.value = provinsi
-    })
+{% endblock js %}
 
-    $(document).ready(function() {
-        $(".add-sebaranuser").click(function() {
-            if (!!document.getElementById('modal_provinsi_sebaran_add').value) {
-                $.ajax({
-                    url: "/sebaran/edit-user",
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken")
-                    },
-                    data: {
-                        "provinsi": document.getElementById('modal_provinsi_sebaran_add').value
-                    },
-                    success: function(result) {
-                        location.reload();
-                    },
-                    error: function(err) {
-                        console.error(err)
-                    }
-                })
-            } else {
-                console.error("Anda belum memilih provinsi")
-            }
-        })
-
-        $(".edit-sebaranuser").click(function() {
-            if (!!document.getElementById('modal_provinsi_sebaran_edit').value) {
-                $.ajax({
-                    url: "/sebaran/edit-existing-user",
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken")
-                    },
-                    data: {
-                        "provinsi": document.getElementById('modal_provinsi_sebaran_edit').value
-                    },
-                    success: function(result) {
-                        location.reload();
-                    },
-                    error: function(err) {
-                        console.error(err)
-                    }
-                })
-            } else {
-                console.error("Anda belum memilih provinsi")
-            }
-        })
-
-        $(".hapus-sebaranuser").click(function() {
-            $.ajax({
-                url: "/sebaran/delete-user",
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": getCookie("csrftoken")
-                },
-                success: function(result) {
-                    location.reload();
-                },
-                error: function(err) {
-                    console.error(err)
-                }
-            })
-        })
-    })
-</script>
-{% endif %}
-
-<!-- AJAX Related Scripts for Superusers -->
-{% if user.is_authenticated and user.is_superuser %}
-    <script>
-        var editModal = document.getElementById('editModal')
-        editModal.addEventListener('show.bs.modal', function (event) {
-            // Button that triggered the modal
-            var button = event.relatedTarget
-            // Extract info from data-* attributes
-            var provinsi = button.getAttribute('data-provinsi')
-            var terkonfirmasi = button.getAttribute('data-terkonfirmasi')
-            var aktif = button.getAttribute('data-aktif')
-            var sembuh = button.getAttribute('data-sembuh')
-            var meninggal = button.getAttribute('data-meninggal')
-            var pk = button.getAttribute('data-pk')
-            
-            // Get the modal's content.
-            var modalBodyProvinsi = editModal.querySelector('.modal-body .provinsi')
-            var modalBodyTerkonfirmasi = editModal.querySelector('.modal-body .terkonfirmasi')
-            var modalBodyAktif = editModal.querySelector('.modal-body .aktif')
-            var modalBodySembuh = editModal.querySelector('.modal-body .sembuh')
-            var modalBodyMeninggal = editModal.querySelector('.modal-body .meninggal')
-            var modalSaveButton = editModal.getElementsByClassName("edit-provinsi")
-
-            modalBodyProvinsi.value = provinsi
-            modalBodyTerkonfirmasi.value = terkonfirmasi
-            modalBodyAktif.value = aktif
-            modalBodySembuh.value = sembuh
-            modalBodyMeninggal.value = meninggal
-            modalSaveButton.pk = pk
-        })
-
-        $(document).ready(function() {
-            $(".edit-provinsi").click(function() {
-                $.ajax({
-                    url: "/sebaran/edit",
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": getCookie("csrftoken")
-                    },
-                    data: {
-                        "id": editModal.getElementsByClassName("edit-provinsi").pk,
-                        "provinsi": document.getElementById('modal_provinsi').value,
-                        "terkonfirmasi": document.getElementById('modal_terkonfirmasi').value,
-                        "aktif": document.getElementById('modal_aktif').value,
-                        "sembuh": document.getElementById('modal_sembuh').value,
-                        "meninggal": document.getElementById('modal_meninggal').value
-                    },
-                    success: function(result) {
-                        location.reload();
-                    },
-                    error: function (err) {
-                        console.error(err)
-                    }
-                })
-            })
-        })
-    </script>
-{% endif %}
-
-<!-- Chart Script -->
-<script>
-    const sebaran_values = "{{ sebaran_values|safe }}".replace(/'/g, '"');
-    const sebaran_data = JSON.parse(sebaran_values);
-
-    let d_labels = []
-    let d_data_aktif = []
-
-    for (let i=0; i<sebaran_data.length; i++) {
-        d_labels.push(sebaran_data[i].provinsi)
-        d_data_aktif.push(sebaran_data[i].jumlah_kasus_aktif)
-    }
-
-    const ctx = document.getElementById('sebaranChart').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: d_labels,
-            datasets: [
-                {
-                    label: 'Jumlah Kasus Aktif per Provinsi',
-                    data: d_data_aktif,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                },
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
 {% endblock content %}

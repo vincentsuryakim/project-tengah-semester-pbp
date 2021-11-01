@@ -3,6 +3,7 @@ from django.db.models import Sum
 from django.db.models.functions import Lower
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 from .models import Sebaran, SebaranUser
 from .forms import SebaranForm
@@ -21,12 +22,8 @@ def index(request):
 
     form = SebaranForm(request.POST or None)
 
-    if (form.is_valid() and request.method == "POST"):
-        provinsi = form.data['provinsi']
-
-        # Validasi apakah sudah ada data dengan nama provinsi yang sama pada model Sebaran
-        if (Sebaran.objects.filter(provinsi__iexact=provinsi).count() == 0):
-            form.save()
+    if (form.is_valid() and request.method == "POST" and request.user.is_superuser):
+        form.save()
         return HttpResponseRedirect("/sebaran")
 
     if request.user.is_authenticated:
@@ -39,7 +36,7 @@ def index(request):
 
 # Mengubah data suatu provinsi pada model Sebaran
 def edit_sebaran(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_superuser):
 
         # Get data from request body
         id = request.POST.get("id")
@@ -64,24 +61,24 @@ def edit_sebaran(request):
 
 # Menambahkan provinsi anda ke model SebaranUser
 def edit_user(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_authenticated):
         provinsi = request.POST.get("provinsi")
 
-        # Validasi apakah sudah ada data provinsi seorang user pada model SebaranUser
-        if (not SebaranUser.objects.filter(user_id=request.user.id).exists()):
-            try:
-                sebaran_user = SebaranUser(user_id=User.objects.get(id=request.user.id), provinsi=Sebaran.objects.get(provinsi=provinsi))
-                sebaran_user.save()
-            except User.DoesNotExist:
-                print(f"User object with ID: {request.user.id} does not exist")
-            except Sebaran.DoesNotExist:
-                print(f"Sebaran object with Provinsi: {provinsi} does not exist")
+        try:
+            sebaran_user = SebaranUser(user_id=User.objects.get(id=request.user.id), provinsi=Sebaran.objects.get(provinsi=provinsi))
+            sebaran_user.save()
+        except User.DoesNotExist:
+            print(f"User object with ID: {request.user.id} does not exist")
+        except Sebaran.DoesNotExist:
+            print(f"Sebaran object with Provinsi: {provinsi} does not exist")
+        except IntegrityError:
+            print(f"SebaranUser object with User ID: {request.user.id} already exists")
 
     return HttpResponseRedirect("/sebaran")
 
 # Mengubah provinsi anda saat ini pada model SebaranUser
 def edit_existing_user(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_authenticated):
         provinsi = request.POST.get("provinsi")
 
         try:
@@ -97,7 +94,7 @@ def edit_existing_user(request):
 
 # Menghapus provinsi anda saat ini pada model SebaranUser
 def delete_user(request):
-    if (request.method == "POST"):
+    if (request.method == "POST" and request.user.is_authenticated):
         try:
             sebaran_user = SebaranUser.objects.get(user_id=request.user.id)
             sebaran_user.delete()

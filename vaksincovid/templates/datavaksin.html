@@ -1,0 +1,198 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+Infid
+{% endblock title %}
+
+{% block content %}
+<!-- TITLE START -->
+<style>
+    .accordion
+    {
+      max-width: 100%;  
+    }
+    .accordion .contentBx
+    {
+       position: relative;
+       margin : 10px 20px;
+    }
+    .accordion .contentBx .label
+    {
+        position: relative;
+        padding: 10px;
+        background: #152636;
+        color: #fff;
+        cursor: pointer;
+    }
+    .accordion .contentBx .label::before
+    {
+        content: '+';
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 1.5em;
+    }
+    .accordion .contentBx.active .label::before
+    {
+        content: '-';
+    }
+    .accordion .contentBx .content
+    {
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        background: #323b44;
+        color: #fff;
+        overflow-y: auto;
+    }
+    .accordion .contentBx.active .content
+    {
+        height: max-content;
+        padding: 10px;
+
+    }
+</style>
+<div style ="padding: 32px 72px;">
+    <h1 style="font-family: poppins ; font-weight: 700; font-size: 45px;">Vaksinasi COVID-19</h1>
+    <hr>
+    <p class="text-justify" style="font-family: poppins; font-size: larger;">Vaksinasi adalah pemberian Vaksin dalam rangka menimbulkan atau meningkatkan kekebalan seseorang secara aktif terhadap suatu penyakit, 
+        sehingga apabila suatu saat terpajan dengan penyakit tersebut tidak akan sakit atau hanya mengalami sakit ringan dan tidak menjadi sumber penularan.</p>
+    <br>
+    <p class="text-justify" style="font-family: poppins; font-size: larger;">Pelayanan vaksinasi COVID-19 dilaksanakan di Fasilitas Pelayanan Kesehatan milik Pemerintah Pusat, Pemerintah Daerah Provinsi, 
+        Pemerintah Daerah Kabupaten/Kota atau milik masyarakat/swasta yang memenuhi persyaratan.</p>
+    
+    <a class="nav-link text-white text-center w-100" href="/rsrujukan">
+        <button class="btn btn-primary" id="loadmoreBtn" style="font-family: poppins;">Lokasi Vaksinasi</button>
+    </a>
+    <hr>
+    {% if not user.is_authenticated %}
+    <h1 style="font-family: poppins ; font-weight: 700; font-size: 45px;">Lakukanlah Login Terlebih Dahulu untuk Mendapatkan Daftar Vaksin yang Digunakan di Indonesia</h1>
+    {% else %}
+    <h1 style="font-family: poppins ; font-weight: 700; font-size: 45px;">Daftar Vaksin COVID-19 yang Digunakan di Indonesia</h1>
+    <br>
+    <!-- ACCORDION LAYOUT -->
+    <div class="accordion post-wrapper">
+        <div class="contentBx">
+            <div class="label" style="font-family: poppins; font-size: x-large;">Lorem Ipsum</div>
+            <div class="content" style="font-family: poppins;">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+                <hr>
+                <h3>Presentasi</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+                <h3>Usia Rekomendasi</h3>
+                <p>bla bla bla hingga bla bla bla</p>
+                <h3>Jadwal</h3>
+                <p>bla bla bla hingga bla bla bla</p>
+            </div>
+        </div>
+    <!-- LOOP MODELS -->
+    {% for d in datavaksin %}
+        <div class="contentBx post-box">
+            <div class="label" style="font-family: poppins; font-size: x-large;">{{d.nama}}</div>
+            <div class="content" style="font-family: poppins;">
+                <p>{{d.deskripsi}}</p>
+                <hr>
+                <h3>Presentasi</h3>
+                <p>{{d.presentasi}}</p>
+                <h3>Usia Rekomendasi</h3>
+                <p>{{d.usia}}</p>
+                <h3>Jadwal</h3>
+                <p>{{d.jadwal}}</p>
+                <br>
+                <p>Dosis 1: {{d.dosis1}}</p>
+                <br>
+                <p>Dosis 2: {{d.dosis2}}</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <!-- LAYOUT END -->
+    <p class="text-center">
+        <button class="btn btn-primary" id="loadmoreBtn2" style="font-family: poppins;">Load More</button>
+    </p>
+    {% endif %}
+
+</div>
+
+
+{% endblock content %}
+{% block js %}
+
+
+<!-- AJAX -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+            $("#loadmoreBtn2").on('click',function(){
+               
+                var _currentResult=$(".post-box").length;
+                // Run Ajax
+                $.ajax({
+                    url:"{% url 'load-more2' %}",
+                    type:'post',
+                    data:{
+                        'offset':_currentResult,
+                        'csrfmiddlewaretoken':"{{csrf_token}}"
+                    },
+                    dataType:'json',
+                    beforeSend:function(){
+                        $("#loadmoreBtn2").addClass('disabled').text('Loading..');
+                    },
+                    success:function(res){
+                        var _html='';
+                        var json_data=$.parseJSON(res.posts);
+                        $.each(json_data,function(index,data){
+                            _html+=`
+                            <div class="contentBx post-box">\
+                                <div class="label" style="font-family: poppins; font-size: x-large;">${data.fields.nama}</div>\
+                                <div class="content" style="font-family: poppins;">\
+                                    <p>${data.fields.deskripsi}</p>\
+                                    <hr>\
+                                    <h3>Presentasi</h3>\
+                                    <p>${data.fields.presentasi}</p>\
+                                    <h3>Usia Rekomendasi</h3>\
+                                    <p>${data.fields.usia}</p>\
+                                    <h3>Jadwal</h3>\
+                                    <p>${data.fields.jadwal}</p>\
+                                    <br>\
+                                    <p>Dosis 1: ${data.fields.dosis1}</p>\
+                                    <br>\
+                                    <p>Dosis 2: ${data.fields.dosis2}</p>\
+                                </div>\
+                            </div>`;
+                        });
+                        $(".post-wrapper").append(_html);
+                        const accordion = document.getElementsByClassName('contentBx');
+                            for(i=0; i<accordion.length;i++){
+                                accordion[i].addEventListener('click', function(){
+                                    this.classList.toggle('active')
+                                })
+                            }
+                        var _countTotal=$(".post-box").length;
+                        if(_countTotal==res.totalResult){
+                            $("#loadmoreBtn2").remove();
+                            
+                        }else{
+                            $("#loadmoreBtn2").removeClass('disabled').text('Load More');
+                            
+                        }
+                    }
+                });
+            });
+        });
+</script>
+<!-- SCRIPT ACCORDION -->
+<script>
+    const accordion = document.getElementsByClassName('contentBx');
+    for(i=0; i<accordion.length;i++){
+        accordion[i].addEventListener('click', function(){
+            this.classList.toggle('active')
+        })
+    }
+</script>
+{% endblock js %}
