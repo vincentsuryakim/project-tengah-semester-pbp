@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'sebaran',
     'TimPakar',
     'RSRujukan',
+    'layananisolasi',
     'vaksincovid',
     'edukasiProtokol',
     'kontak',
