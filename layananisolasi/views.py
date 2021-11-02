@@ -21,7 +21,7 @@ def index(request):
     return render(request,'layananisolasi.html',{'posts':posts_obj})
 
 # Load More
-def load_more(request):
+def lengkap(request):
     offset=int(request.POST['offset'])
     limit=3
     posts=Note.objects.all()[offset:limit+offset]
