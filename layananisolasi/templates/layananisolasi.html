@@ -228,7 +228,7 @@ Infid
             <p></p>
             <input style="border-radius: 5px; margin-right: 5px;" type="text" name="untuk" placeholder=" Nama Lengkap" required>
             
-            <input style="border-radius: 5px; margin-right: 5px;" type="text" name="dari" placeholder=" NIK" required>
+            <input style="border-radius: 5px; margin-right: 5px;" type="text" name="dari" placeholder=" Umur" required>
             
             <input style="border-radius: 5px; margin-right: 5px;" type="text" name="title" placeholder=" Kota/Kabupaten" required>
             
@@ -243,13 +243,13 @@ Infid
             <table style="width:97%; text-align: center;" class="center post-wrapper" >
                 <tr>
                   <th>Nama Lengkap</th>
-                  <th>NIK</th>
+                  <th>Umur</th>
                   <th>Kota/Kabupaten</th>
                   <th>Nama Ibu Kandung</th>
                 </tr>
                 <tr>
                     <td>Udin Marhamah</td>
-                    <td>200261254667821</td>
+                    <td>20</td>
                     <td>Bogor</td>
                     <td>Siti</td>
                 </tr>
@@ -292,7 +292,7 @@ Infid
                     var _currentResult=$(".post-box").length;
                     // Run Ajax
                     $.ajax({
-                        url:"{% url 'load-more' %}",
+                        url:"{% url 'lengkap' %}",
                         type:'post',
                         data:{
                             'offset':_currentResult,
