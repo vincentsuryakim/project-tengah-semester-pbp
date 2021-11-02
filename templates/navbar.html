@@ -33,8 +33,8 @@
             </ul>
             {% if not user.is_authenticated %}
                 <form class="d-flex justify-content-center">
-                    <button type="button" class="mr-3 btn btn-link text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
-                    <button type="button" class="btn btn-outline-success ml-3 text-dark px-3" style="background-color: #00ADB5;" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
+                    <button type="button" class="btn btn-link text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                    <button type="button" class="btn btn-outline-success text-dark px-3" style="background-color: #00ADB5;" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
                 </form>
             {% else %}
                 <p class="text-center authenticated_cust">Hi, {{ user.first_name }}!</p>
