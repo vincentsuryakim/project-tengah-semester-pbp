@@ -26,7 +26,7 @@ def add_regist(request):
     response = {'form': form}
     return render(request, 'timpakar_form.html', response)
 
-def load_more(request):
+def more_pakar(request):
     offset=int(request.POST['offset'])
     limit=2
     posts=Regist.objects.all()[offset:limit+offset]
