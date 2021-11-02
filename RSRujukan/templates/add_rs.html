@@ -6,6 +6,20 @@
     Booking RS
 {% endblock title %}
     
+{% block head %}
+    <style>
+        body {
+            min-height: 100%;
+        }
+        .footer {
+            position: absolute;
+            bottom:0;
+            left:0;
+            width: 100%;
+        }
+    </style>
+{% endblock head %}
+
 {% block content %}
 {% if user.is_authenticated and user.is_superuser %}
 <div class="container" style="width: 25%; margin-top: 5%;">
@@ -37,7 +51,7 @@
 {% endblock content %}
 
 
-{% block script %}
+{% block js %}
 <script>
     const form = document.getElementById("form");
     form.addEventListener("submit", submitHandler);
@@ -58,5 +72,5 @@
         })
     }
 </script>
-{% endblock script %}
+{% endblock js %}
     

@@ -1,0 +1,328 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+Infid
+{% endblock title %}
+
+{% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+    table, th, td {
+        border:1px solid rgb(255, 255, 255);
+        border-radius: 5px;
+    }
+    th, td {
+        padding: 10px;
+        border-style: outset;
+        background-color: rgb(255, 255, 255);
+    }
+    .circle {
+    padding: 13px 20px;
+    border-radius: 50%;
+    background-color: #00ADB5;
+    color: #fff;
+    max-height: 50px;
+    z-index: 2;
+    }
+    .how-it-works.row .col-2 {
+    align-self: stretch;
+    }
+    .how-it-works.row .col-2::after {
+    content: "";
+    position: absolute;
+    border-left: 3px solid #00ADB5;
+    z-index: 1;
+    }
+    .how-it-works.row .col-2.bottom::after {
+    height: 50%;
+    left: 50%;
+    top: 50%;
+    }
+    .how-it-works.row .col-2.full::after {
+    height: 100%;
+    left: calc(50% - 3px);
+    }
+    .how-it-works.row .col-2.top::after {
+    height: 50%;
+    left: 50%;
+    top: 0;
+    }
+    .timeline div {
+    padding: 0;
+    height: 40px;
+    }
+    .timeline hr {
+    border-top: 3px solid #00ADB5;
+    margin: 0;
+    top: 17px;
+    position: relative;
+    }
+    .timeline .col-2 {
+    display: flex;
+    overflow: hidden;
+    }
+    .timeline .corner {
+    border: 3px solid #00ADB5;
+    width: 100%;
+    position: relative;
+    border-radius: 15px;
+    }
+    .timeline .top-right {
+    left: 50%;
+    top: -50%;
+    }
+    .timeline .left-bottom {
+    left: -50%;
+    top: calc(50% - 3px);
+    }
+    .timeline .top-left {
+    left: -50%;
+    top: -50%;
+    }
+    .timeline .right-bottom {
+    left: 50%;
+    top: calc(50% - 3px);
+    }
+    
+    .typewriter {
+    font: Poppins;
+	display: inline-table;
+    margin-left: 250px;
+    }
+    .typewriter-text {
+        display: inline-block;
+        overflow: hidden;
+        
+        animation: typing 7s steps(30, end), blink .90s step-end infinite;
+        white-space: nowrap;
+        font-size: 17px;
+        font-weight: 400;
+        border-right: 4px solid #00ADB5;
+        box-sizing: border-box;
+    }
+
+    @keyframes typing {
+        from { 
+            width: 0% 
+        }
+        to { 
+            width: 100% 
+        }
+    }
+
+    @keyframes blink {
+        from, to { 
+            border-color: transparent 
+        }
+        50% { 
+            border-color: #00ADB5; 
+        }
+    }
+</style>
+    <div style ="padding: 32px 72px">
+        <h3 style="text-align: center;  margin-bottom: 10px;">Panduan Penggunaan Layanan Isolasi Mandiri COVID-19</h3>
+        <div class="typewriter">
+            <div class="typewriter-text">Alur dalam penggunaan layanan isolasi mandiri ini diawasi oleh Kementerian Kesehatan Republik Indonesia</div>
+        </div>
+        <iframe style="margin-left: auto; margin-right: auto; margin-top: 40px; display: block; margin-bottom: 50px; border-radius: 20px;" width="640" height="360"  src="https://www.youtube.com/embed/fgbzAupJajU?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="">
+            <div class="container">
+              
+              <!--first section-->
+              <div class="row align-items-center how-it-works d-flex">
+                <div class="col-2 text-center bottom d-inline-flex justify-content-center align-items-center">
+                  <div class="circle font-weight-bold">1</div>
+                </div>
+                <div class="col-6">
+                  <h5>Melakukan Tes PCR</h5>
+                  <p>Pasien melakukan tes PCR / swab antigen di laboratorium yang terafiliasi dengan Kementerian Kesehatan RI. Jika hasil tesnya positif dan lab melaporkan hasilnya ke database kasus positif COVID-19 di Kemenkes (NAR), maka pasien akan menerima Whatsapp dari Kemenkes RI (dengan centang hijau) secara otomatis.</p>
+                </div>
+              </div>
+              <!--path between 1-2-->
+              <div class="row timeline">
+                <div class="col-2">
+                  <div class="corner top-right"></div>
+                </div>
+                <div class="col-8">
+                  <hr/>
+                </div>
+                <div class="col-2">
+                  <div class="corner left-bottom"></div>
+                </div>
+              </div>
+              <!--second section-->
+              <div class="row align-items-center justify-content-end how-it-works d-flex">
+                <div class="col-6 text-right">
+                  <h5>Konsultasi dengan Dokter</h5>
+                  <p>Lakukan konsultasi dokter dengan menginformasikan Anda adalah pasien program Kementerian Kesehatan.</p>
+                </div>
+                <div class="col-2 text-center full d-inline-flex justify-content-center align-items-center">
+                  <div class="circle font-weight-bold">2</div>
+                </div>
+              </div>
+              <!--path between 2-3-->
+              <div class="row timeline">
+                <div class="col-2">
+                  <div class="corner right-bottom"></div>
+                </div>
+                <div class="col-8">
+                  <hr/>
+                </div>
+                <div class="col-2">
+                  <div class="corner top-left"></div>
+                </div>
+              </div>
+              <!--third section-->
+              <div class="row align-items-center how-it-works d-flex">
+                <div class="col-2 text-center top d-inline-flex justify-content-center align-items-center">
+                  <div class="circle font-weight-bold">3</div>
+                </div>
+                <div class="col-6">
+                  <h5>Resep Digital</h5>
+                  <p>Setelah melakukan konsultasi secara daring, dokter akan memberikan resep digital sesuai dengan kondisi pasien. Jika pasien masuk dalam kategori yang dapat melakukan isoman, obat dapat ditebus gratis.</p>
+                </div>
+              </div>
+              <!--first section-->
+              <div class="row align-items-center how-it-works d-flex">
+                <div class="col-2 text-center bottom d-inline-flex justify-content-center align-items-center">
+                  <div class="circle font-weight-bold">4</div>
+                </div>
+                <div class="col-6">
+                  <h5>Pengiriman Obat</h5>
+                  <p>Kementerian Kesehatan bekerja sama dengan jasa pengiriman dari SiCepat untuk mengambil obat dan/atau vitamin dari Apotek Kimia Farma dan mengirimkan ke alamat pasien.</p>
+                </div>
+              </div>
+              <!--path between 1-2-->
+              <div class="row timeline">
+                <div class="col-2">
+                  <div class="corner top-right"></div>
+                </div>
+                <div class="col-8">
+                  <hr/>
+                </div>
+                <div class="col-2">
+                  <div class="corner left-bottom"></div>
+                </div>
+              </div>
+              <!--second section-->
+              <div class="row align-items-center justify-content-end how-it-works d-flex">
+                <div class="col-6 text-right">
+                  <h5>Mengisi Formulir Isolasi Mandiri</h5>
+                  <p>Anda yang akan melakukan isolasi mandiri harap mengisi formulir dibawah ini agar biodata Anda tersimpan oleh Kementerian Kesehatan dan tetap terkontrol oleh Dokter.</p>
+                </div>
+                <div class="col-2 text-center full d-inline-flex justify-content-center align-items-center">
+                  <div class="circle font-weight-bold">5</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% if user.is_authenticated and user.is_superuser %}
+        <div class="content">
+            <form action= "" method="POST">
+            <fieldset style="text-align: center;">
+                <h4 style="margin-top: 40px; margin-bottom: 20px;">Formulir Melakukan Isolasi Mandiri</h4>
+            {% csrf_token %}
+            <p></p>
+            <input style="border-radius: 5px; margin-right: 5px;" type="text" name="untuk" placeholder=" Nama Lengkap" required>
+            
+            <input style="border-radius: 5px; margin-right: 5px;" type="text" name="dari" placeholder=" NIK" required>
+            
+            <input style="border-radius: 5px; margin-right: 5px;" type="text" name="title" placeholder=" Kota/Kabupaten" required>
+            
+            <input style="border-radius: 5px; margin-right: 5px;" type="text" name="message" placeholder=" Nama Ibu Kandung" required>
+            
+            <button style="border-radius: 5px; background-color: #00ADB5; color: #fff;">Submit</button>
+            <p></p>
+            </fieldset>
+            </form>
+
+            <h4 style="margin-top: 40px; margin-bottom: 20px; text-align: center;">Daftar Masyarakat Pengguna Layanan Isolasi Mandiri COVID-19</h4>
+            <table style="width:97%; text-align: center;" class="center post-wrapper" >
+                <tr>
+                  <th>Nama Lengkap</th>
+                  <th>NIK</th>
+                  <th>Kota/Kabupaten</th>
+                  <th>Nama Ibu Kandung</th>
+                </tr>
+                <tr>
+                    <td>Udin Marhamah</td>
+                    <td>200261254667821</td>
+                    <td>Bogor</td>
+                    <td>Siti</td>
+                </tr>
+                {% for note in notes %}
+                <tr class="post-box">
+                  <td>{{ note.untuk }}</td>
+                  <td>{{ note.dari }}</td>
+                  <td>{{ note.title }}</td>
+                  <td>{{ note.message }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+
+              <p class="text-center">
+                <button style="margin-top: 20px;" class="btn btn-dark" id="loadmoreBtn">Load More</button>
+            </p>
+            <h4 style="text-align: center; margin-top: 50px; margin-bottom: 20px;">Konsultasi Daring</h4>
+            <img style="width: 10%; height: auto; margin-right: 20px; margin-left: 250px;" src="{% static 'images/layananisolasi/halodoc-logo.png' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/klikdokter.jpeg' %}">
+            <img style="width: 5%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/gooddoctor.jpeg' %}">
+            <img style="width: 5%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/yesdok.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/sehatq.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/grabhealth.jpeg' %}"><br><br>
+            <img style="width: 10%; height: auto; margin-right: 20px; margin-left: 225px;" src="{% static 'images/layananisolasi/alodokter.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/klinikgo.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/milvik.jpeg' %}">
+            <img style="width: 5%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/getwell.jpeg' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/trustmedis.png' %}">
+            <img style="width: 10%; height: auto; margin-right: 20px;" src="{% static 'images/layananisolasi/prosehat.jpeg' %}"><br><br>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock content %}
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+        <script>
+            $(document).ready(function(){
+                $("#loadmoreBtn").on('click',function(){
+                    var _currentResult=$(".post-box").length;
+                    // Run Ajax
+                    $.ajax({
+                        url:"{% url 'load-more' %}",
+                        type:'post',
+                        data:{
+                            'offset':_currentResult,
+                            'csrfmiddlewaretoken':"{{csrf_token}}"
+                        },
+                        dataType:'json',
+                        beforeSend:function(){
+                            $("#loadmoreBtn").addClass('disabled').text('Loading..');
+                        },
+                        success:function(res){
+                            var _html='';
+                            var json_data=$.parseJSON(res.posts);
+                            $.each(json_data,function(index,data){
+                                _html+=`<tr class="post-box">\
+                  <td>${data.fields.untuk}</td>\
+                  <td>${data.fields.dari}</td>\
+                  <td>${data.fields.title}</td>\
+                  <td>${data.fields.message}</td>\
+                </tr>`;
+                            });
+                            $(".post-wrapper").append(_html);
+                            var _countTotal=$(".post-box").length;
+                            if(_countTotal==res.totalResult){
+                                $("#loadmoreBtn").remove();
+                            }else{
+                                $("#loadmoreBtn").removeClass('disabled').text('Load More');
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+        {% endblock js %}

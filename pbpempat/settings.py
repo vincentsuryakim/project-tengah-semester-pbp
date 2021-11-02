@@ -37,12 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # Apps
     'Infid',
     'sebaran',
     'TimPakar',
     'RSRujukan',
+    'layananisolasi',
+    'vaksincovid',
+    'edukasiProtokol',
+    'kontak',
 ]
 
 MIDDLEWARE = [

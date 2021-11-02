@@ -19,6 +19,10 @@ import Infid.urls as Infid
 import sebaran.urls as sebaran
 import TimPakar.urls as TimPakar
 import RSRujukan.urls as rsrujukan
+import layananisolasi.urls as layananisolasi
+import vaksincovid.urls as vaksincovid
+import edukasiProtokol.urls as edukasiProtokol
+import kontak.urls as kontak
 
 from .views import login, register, logout
 
@@ -30,5 +34,9 @@ urlpatterns = [
     path('login/', login),
     path('register/', register),
     path('logout/', logout),
+    path('layananisolasi/', include(layananisolasi)),
     path('timPakarCovid/', include(TimPakar)),
+    path('vaksincovid/', include(vaksincovid)),
+    path('edukasiProtokol/', include(edukasiProtokol)),
+    path('kontak/', include(kontak)),
 ]
