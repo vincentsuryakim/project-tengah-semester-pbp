@@ -35,7 +35,21 @@ $(document).ready(function() {
     }
 
     $("#modal_confirm_password_signup").on('input', function() {
-        if (this.value === document.getElementById('modal_password_signup').value) {
+        const password_input = document.getElementById('modal_password_signup').value
+        const confirm_password_input = this.value
+
+        if (!!confirm_password_input && password_input === confirm_password_input) {
+            document.getElementById('signup-submit-button').disabled = false
+        } else {
+            document.getElementById('signup-submit-button').disabled = true
+        }
+    });
+
+    $("#modal_password_signup").on('input', function() {
+        const password_input = this.value
+        const confirm_password_input = document.getElementById('modal_confirm_password_signup').value
+
+        if (!!password_input && password_input === confirm_password_input) {
             document.getElementById('signup-submit-button').disabled = false
         } else {
             document.getElementById('signup-submit-button').disabled = true

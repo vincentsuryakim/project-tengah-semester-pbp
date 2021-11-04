@@ -8,6 +8,10 @@
     margin: 0px 1rem 0px 0px;
     font-weight: 700;
 }
+#signup-submit-button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
 @media (max-width: 992px){
     .li-cust {
         min-width: 100%;
