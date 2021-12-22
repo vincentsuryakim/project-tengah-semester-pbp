@@ -38,4 +38,19 @@ def more_pakar(request):
         'totalResult':totalData
     })
 
+def search_json(request):
+    regist = Regist.objects.all().order_by('id')
+    data = serializers.serialize('json', regist)
+    return HttpResponse(data, content_type="application/json")
+
+
+@csrf_exempt
+def add_from_flutter(request):
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    new_article = Regist(**data)
+    new_article.save()
+    return JsonResponse({
+        "success": "New Tim Pakar Successfully Added",
+    })
 
