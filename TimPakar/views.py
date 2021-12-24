@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from .models import Regist
 from .forms import RegistForm
@@ -5,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core import serializers
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
