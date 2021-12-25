@@ -49,11 +49,7 @@ def next_artikel(request):
     })
 
 def get_data(request):
-    if 'q' in request.GET:
-        q = request.GET['q']
-        articles = Artikel.objects.filter(title__icontains=q).order_by('id')
-    else:
-        articles = Artikel.objects.all().order_by('id')
+    articles = Artikel.objects.all().order_by('id')
     data = serializers.serialize('json', articles)
     return HttpResponse(data, content_type="application/json")
 
