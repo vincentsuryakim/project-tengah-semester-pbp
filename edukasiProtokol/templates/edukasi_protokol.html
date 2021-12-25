@@ -210,7 +210,7 @@ Infid
                 beforeSend:function(){
                     $("#loadmoreBtn").addClass('disabled').text('Loading..');
                 },
-                success:function(res){
+                success:function(res){ 
                     var _html='';
                     var json_data=$.parseJSON(res.posts);
                     var length_str = 80;

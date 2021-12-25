@@ -5,6 +5,8 @@ from django.http.response import HttpResponse, HttpResponseRedirect, JsonRespons
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     if 'q' in request.GET:
@@ -46,3 +48,22 @@ def next_artikel(request):
         'totalResult':totalData
     })
 
+def get_data(request):
+    if 'q' in request.GET:
+        q = request.GET['q']
+        articles = Artikel.objects.filter(title__icontains=q).order_by('id')
+    else:
+        articles = Artikel.objects.all().order_by('id')
+    data = serializers.serialize('json', articles)
+    return HttpResponse(data, content_type="application/json")
+
+
+@csrf_exempt
+def add_data(request):
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    new_article = Artikel(**data)
+    new_article.save()
+    return JsonResponse({
+        "success": "New Article Successfully Added",
+    })
