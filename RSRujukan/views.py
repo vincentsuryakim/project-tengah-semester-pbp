@@ -1,9 +1,12 @@
+import json
 from json.encoder import JSONEncoder
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import RumahSakit, BookingRS
 from .forms import BookingForm, AddRS
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -68,3 +71,18 @@ def book_delete(request, id):
 def updateUser(request):
     users = BookingRS.objects.all()
     return JsonResponse({"users":list(users.values())})
+
+def getRS(request):
+    rs = RumahSakit.objects.all()
+    data = serializers.serialize('json', rs)
+    return HttpResponse(data, content_type="application/json")
+
+@csrf_exempt
+def add_book(request):
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    bookingrs = BookingRS(**data)
+    bookingrs.save()
+    return JsonResponse({
+        "success": "Berhasil ditambahkan",
+    })
