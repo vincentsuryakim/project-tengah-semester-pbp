@@ -5,6 +5,9 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 
+from django.http.response import HttpResponse
+import json
+
 from .models import Sebaran, SebaranUser
 from .forms import SebaranForm
 
@@ -33,6 +36,17 @@ def index(request):
             response['sebaran_user'] = None
 
     return render(request, 'sebaran_index.html', response)
+
+def sebaran_json(request):
+    response = {
+        'sebaran': list(Sebaran.objects.order_by('-jumlah_kasus_aktif').values()),
+        'terkonfirmasi': Sebaran.objects.aggregate(Sum('jumlah_kasus_terkonfirmasi'))['jumlah_kasus_terkonfirmasi__sum'],
+        'aktif': Sebaran.objects.aggregate(Sum('jumlah_kasus_aktif'))['jumlah_kasus_aktif__sum'],
+        'sembuh': Sebaran.objects.aggregate(Sum('jumlah_sembuh'))['jumlah_sembuh__sum'],
+        'meninggal': Sebaran.objects.aggregate(Sum('jumlah_meninggal'))['jumlah_meninggal__sum'],
+    }
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
 
 # Mengubah data suatu provinsi pada model Sebaran
 def edit_sebaran(request):
