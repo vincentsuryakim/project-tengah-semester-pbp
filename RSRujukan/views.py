@@ -78,6 +78,16 @@ def getRS(request):
     return HttpResponse(data, content_type="application/json")
 
 @csrf_exempt
+def add_rumahsakit(request):
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    rumahsakit = RumahSakit(**data)
+    rumahsakit.save()
+    return JsonResponse({
+        "success": "Berhasil ditambahkan",
+    })
+
+@csrf_exempt
 def add_book(request):
     body_unicode = request.body.decode('utf-8')
     data = json.loads(body_unicode)
