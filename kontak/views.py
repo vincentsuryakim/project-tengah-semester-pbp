@@ -5,6 +5,8 @@ from .forms import KontakForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def index(request):
     if 'q' in request.GET:
@@ -40,4 +42,19 @@ def load_more(request):
     return JsonResponse(data={
         'kontaks': kontaks_json,
         'totalResult': totalData
+    })
+
+def json(request):
+    data = serializers.serialize('json', Kontak.objects.all())
+    return response.HttpResponse(data, content_type="application/json")
+
+
+@csrf_exempt
+def add_data(request):
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    kontak = Kontak(**data)
+    kontak.save()
+    return JsonResponse({
+        "success": "Berhasil ditambahkan",
     })
