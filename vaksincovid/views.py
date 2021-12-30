@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core import serializers
-from django.http import JsonResponse, response
+from django.http import JsonResponse, response, HttpResponse
 from .models import dataVaksin
 # Create your views here.
 
@@ -26,3 +26,8 @@ def load_more2(request):
         'posts':posts_json,
         'totalResult':totalData
     })
+
+def get_vaksin(request):
+    posts = dataVaksin.objects.all()
+    data = serializers.serialize('json', posts)
+    return HttpResponse(data, content_type="application/json")
