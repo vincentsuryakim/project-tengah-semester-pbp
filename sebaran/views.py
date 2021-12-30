@@ -4,6 +4,7 @@ from django.db.models.functions import Lower
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
 
 from django.http.response import HttpResponse
 import json
@@ -47,6 +48,27 @@ def sebaran_json(request):
     }
 
     return HttpResponse(json.dumps(response), content_type="application/json")
+
+@csrf_exempt
+def add_sebaran(request):
+    if (request.method == "POST"):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        provinsi = body['provinsi']
+        terkonfirmasi = body["terkonfirmasi"]
+        aktif = body["aktif"]
+        sembuh = body["sembuh"]
+        meninggal = body["meninggal"]
+
+        try:
+            sebaran = Sebaran(provinsi=provinsi, jumlah_kasus_terkonfirmasi=terkonfirmasi, jumlah_kasus_aktif=aktif, jumlah_sembuh=sembuh, jumlah_meninggal=meninggal)
+            sebaran.save()
+            return HttpResponse("Successful", status=200)
+        except Sebaran.DoesNotExist:
+            print("An error occurred")
+            return HttpResponse("An error occurred", status=400, content_type="text/plain")
+    return HttpResponse("Must use POST Method", status=405, content_type="text/plain")
 
 # Mengubah data suatu provinsi pada model Sebaran
 def edit_sebaran(request):
