@@ -61,6 +61,9 @@ def add_sebaran(request):
         sembuh = body["sembuh"]
         meninggal = body["meninggal"]
 
+        if provinsi == '':
+            return HttpResponse("An error occurred", status=400, content_type="text/plain")
+
         try:
             sebaran = Sebaran(provinsi=provinsi, jumlah_kasus_terkonfirmasi=terkonfirmasi, jumlah_kasus_aktif=aktif, jumlah_sembuh=sembuh, jumlah_meninggal=meninggal)
             sebaran.save()
