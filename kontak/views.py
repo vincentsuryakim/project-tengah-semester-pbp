@@ -44,7 +44,7 @@ def load_more(request):
         'totalResult': totalData
     })
 
-def json(request):
+def get_data(request):
     data = serializers.serialize('json', Kontak.objects.all())
     return response.HttpResponse(data, content_type="application/json")
 
@@ -53,8 +53,9 @@ def json(request):
 def add_data(request):
     body_unicode = request.body.decode('utf-8')
     data = json.loads(body_unicode)
-    kontak = Kontak(**data)
-    kontak.save()
+    kontak_baru = Kontak(**data)
+    kontak_baru.save()
     return JsonResponse({
         "success": "Berhasil ditambahkan",
     })
+

@@ -6,7 +6,7 @@ urlpatterns = [
     path('', index, name="kontak"),
     path('tambah-kontak', add_kontak, name="tambah-kontak"),
     path('load-more', load_more, name='load-more'),
-    path('json', json, name='json'),
+    path('get-data', get_data, name='get_data'),
     path('add/', add_data, name='add'),
 
 ]
