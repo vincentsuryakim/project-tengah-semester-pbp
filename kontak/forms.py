@@ -5,4 +5,8 @@ from django import forms
 class KontakForm(forms.ModelForm):
     class Meta:
         model = Kontak
-        fields = '__all__'
+        fields = [
+            'nama',
+            'email',
+            'nomor_kontak',
+        ]
